@@ -51,7 +51,8 @@
 					<div class="bodyContent">
 						<div class="signupbox">
 							<form method="POST" action="">
-								<div class="form-group">
+								<div class="row">
+								<div class="form-group col-md-6 col-lg-6 col-xs-6" id="fg1">
 									{{form.hidden_tag()}}
 									{{form.Username.label(class="form-control-label")}}
 									 {% if form.Username.errors %}
@@ -65,7 +66,7 @@
 										{{form.Username(class="form-control form-control-lg")}}
 									{% endif %}
 								</div>
-								<div class="form-group">
+								<div class="form-group col-md-6 col-lg-6 col-xs-6" id="fg2">
 									{{form.Password.label(class="form-control-label")}}
 									{% if form.Password.errors %}
                  					   {{ form.Password(class="form-control form-control-lg is-invalid") }}
@@ -78,7 +79,10 @@
 										{{form.Password(class="form-control form-control-lg")}}
 									{% endif %}
 								</div>
-								<div class="form-group">
+								</div>
+								<div class="row">
+								<div class="col-md-6 col-lg-6 col-xs-6"></div>
+								<div class="form-group col-md-6 col-lg-6 col-xs-6">
 									{{form.ConfirmPassword.label(class="form-control-label")}}
 									{% if form.ConfirmPassword.errors %}
                  					   {{ form.ConfirmPassword(class="form-control form-control-lg is-invalid") }}
@@ -91,9 +95,11 @@
 										{{form.ConfirmPassword(class="form-control form-control-lg")}}
 									{% endif %}
 								</div>
+								</div>
 								<div class="form-group">
 									{{form.SignUp(class="btn btn-outline-info")}}
 								</div>
+								
 								<a href="{{url_for('signin')}}" style="text-decoration: none">Already have an account?</a><br>
 							</form>
 						</div>
