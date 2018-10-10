@@ -27,16 +27,7 @@
 	<div class="rect animated slideInUp">
 		<div class="rect2">
 			<h1 class="headText animated slideInRight">Welcome</h1>
-			<div style="height: 50vh;
-						width: 68vw;
-						top: 15vh;
-						left: 6vw;
-						transform-origin: center;
-						position: absolute;
-						background-color: rgba(0, 0, 0, 0.1);
-						border-top-left-radius: 35px;
-						border-bottom-right-radius: 35px;
-						">
+			<div class="rect3" style="max-height: 370px">
 				<div class="textarea animated slideInLeft delay-0.5s" style="height: 36vh;
 																	width: 500px;
 																	top: 6vh;
@@ -51,17 +42,19 @@
 						Already have an account?
 					</div><br><br><br><br>
 					<div>
+						<center>
 						<button type="Button" onclick="redirect('signin')" class="hvr-fade" style="top: 16%;
-																	  left: 0%;">
+																	  left: 0%; max-width: 400px">
 							Sign In...
 						</button>
+						</center>
 					</div>
 					<div class="bodyContent b2">
 						Or, care to sign up?
 					</div><br>
 					<div>
 						<button type="Button" onclick="redirect('signup')" class="hvr-fade" style="top: 64%;
-																	  left: 0%;">
+																	  left: 0%; max-width: 400px">
 							Sign Up...
 						</button>
 					</div>

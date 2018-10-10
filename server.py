@@ -1,5 +1,5 @@
 from flask import Flask, render_template, flash, redirect, url_for
-from forms import Register, LogIn, Username
+from forms import Register, LogIn, Username, PersonalInfo
 app = Flask(__name__)
 
 app.config['SECRET_KEY'] = '137173d918599668dd83e68db2bcad2e'
@@ -25,9 +25,19 @@ def signup():
 def createuser():
 	User = Username()
 	if User.validate_on_submit():
-		flash(f'Congratulations! Account created for {User.Username.data}', 'success') #Under development (thesynthax - uncomment and pls check the issue. Its front end related my work here is done)
-		return redirect(url_for('index'))
+		return redirect(url_for('createuser2'))
 	return render_template('createuser.html', title='createuser', form=User)
+
+@app.route('/createuser2', methods=['GET','POST'])
+def createuser2():
+	Personal = PersonalInfo()
+	if Personal.validate_on_submit():
+		return redirect(url_for('dashboard'))
+	return render_template('createuser2.html', title='createuser2', form=Personal)
+	
+@app.route('/dashboard', methods=['GET','POST'])
+def dashboard():
+	return render_template('dashboard.html')
 
 @app.route('/aboutus', methods=['GET','POST'])
 def aboutus():
