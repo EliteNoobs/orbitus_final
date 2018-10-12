@@ -1,8 +1,22 @@
 from flask import Flask, render_template, flash, redirect, url_for
+from flask_sqlalchemy import SQLAlchemy
 from forms import Register, LogIn, Username, PersonalInfo
-app = Flask(__name__)
 
+app = Flask(__name__)
 app.config['SECRET_KEY'] = '137173d918599668dd83e68db2bcad2e'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
+db = SQLAlchemy(app)
+
+class User(db.Model):
+	id = db.Column(db.Integer, primary_key=True)
+	fullname = db.Column(db.String, nullable=False)
+	email = db.Column(db.String,unique=True, nullable=False)
+	Username = db.Column(db.String,unique=True, nullable=False,)
+	password = db.Column(db.String(63), nullable=False)
+	
+	def __repr__(self):
+		return f"('{self.fullname}', '{self.email}', '{self.Username}')"
+
 
 @app.route('/')
 @app.route('/index')
