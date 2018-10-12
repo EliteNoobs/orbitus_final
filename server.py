@@ -4,6 +4,7 @@ from forms import Register, LogIn, Username, PersonalInfo
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '137173d918599668dd83e68db2bcad2e'
+#Added a basic Database
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
 db = SQLAlchemy(app)
 
@@ -17,7 +18,7 @@ class User(db.Model):
 	def __repr__(self):
 		return f"('{self.fullname}', '{self.email}', '{self.Username}')"
 
-
+#It is not linked with the server yet.
 @app.route('/')
 @app.route('/index')
 def index():
