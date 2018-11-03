@@ -1,12 +1,10 @@
 // This is based on the First Progressive Web App Tutorial by Google
 // https://codelabs.developers.google.com/codelabs/your-first-pwapp/
-const cacheName = 'flask-PWA-v1';
+const cacheName = 'Orbitus';
 const filesToCache = [
     '/',
     '/static/app.js',
-    '/static/styles.css',
-    '/offline.html',
-    '/static/images/pwa-light.png'
+    '/offline',
 ];
 
 // When the 'install' event is fired we will cache

@@ -77,3 +77,11 @@ def dashboard():
 @Orbitus.route('/aboutus', methods=['GET','POST'])
 def aboutus():
     return render_template('aboutus.html')
+	
+@Orbitus.route('/offline', methods=['GET','POST'])
+def offline():
+    return Orbitus.send_static_file('offline.html')
+	
+@Orbitus.route('/service-worker.js')
+def sw():
+    return app.send_static_file('service-worker.js')
