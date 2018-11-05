@@ -1,6 +1,6 @@
 from flask import render_template, flash, redirect, url_for, request
 from orbitus.models import Group, Main
-from orbitus.forms import Register, LogIn, Username, PersonalInfo
+from orbitus.forms import Register, LogIn, Username, PersonalInfo, Group
 from orbitus import Orbitus, db, crypter
 from flask_login import login_required,login_user, current_user, logout_user, login_required
 
@@ -84,6 +84,10 @@ def signin():
             flash('Signin Unsuccessful. Please check Username and password', 'danger')
     return render_template('signin.html', title='Signin', form=form)
  
+@Orbitus.route('/creategroup', methods=['GET', 'POST'])
+def creategroup():
+	group = Group()
+	return render_template('creategroup.html', title='Create Group', form=group)
 
 @Orbitus.route('/signout')
 def signout():
