@@ -13,12 +13,6 @@ class Register(FlaskForm):
 			raise ValidationError('This E-Mail has already been registered!')
 
 
-class LogIn(FlaskForm):
-	Username = StringField('Username', validators=[DataRequired(), Length(min=6)])
-	Password = PasswordField('Password', validators=[DataRequired(), Length(min=8, max=64)])
-	RememberMe = BooleanField('Remember Me')
-	login = SubmitField('Log In')
-
 class Username(FlaskForm):
 	Username = StringField('Username', validators=[DataRequired(), Length(min=6)])
 	Password = PasswordField('Password', validators=[DataRequired(), Length(min=8, max=64)])
@@ -29,6 +23,14 @@ class Username(FlaskForm):
 		if current:
 			raise ValidationError('This username has already been registered!')
 	
+
 class PersonalInfo(FlaskForm):
 	Age = IntegerField('Age', validators=[DataRequired(), Length(min=0)])
 	SignUp = SubmitField('Finish Registration')
+
+
+class LogIn(FlaskForm):
+	Username = StringField('Username', validators=[DataRequired(), Length(min=6)])
+	Password = PasswordField('Password', validators=[DataRequired(), Length(min=8, max=64)])
+	RememberMe = BooleanField('Remember Me')
+	login = SubmitField('Log In')

@@ -1,7 +1,9 @@
-from flask import render_template, flash, redirect, url_for
-from orbitus.models import User, Group, Main
+from flask import render_template, flash, redirect, url_for, request
+from orbitus.models import Group, Main
 from orbitus.forms import Register, LogIn, Username, PersonalInfo
 from orbitus import Orbitus, db, crypter
+from flask_login import login_required,login_user, current_user, logout_user, login_required
+
 
 #Dummy user
 d_user = Main()
@@ -33,17 +35,13 @@ clear()
 def index():
     return render_template('index.html')
 
-@Orbitus.route('/signin', methods=['GET','POST'])
-def signin():
-	SignInForm = LogIn() 	#These are the forms
-	return render_template('signin.html', title='signin', form=SignInForm)
 
 @Orbitus.route('/signup', methods=['GET','POST'])
 def signup():
 	SignUpForm = Register() 	#These are the forms
 	if SignUpForm.validate_on_submit():
 		FE(name=SignUpForm.FullName.data,mail=SignUpForm.EMAIL.data)
-
+ 
 		return redirect(url_for('createuser'))
 	return render_template('signup.html', title='signup', form=SignUpForm)
 
@@ -65,11 +63,33 @@ def createuser2():
 	if Personal.validate_on_submit():
 		#A(age=Personal.Age.data)
 		#db.session.add(d_user)
-		#db.session.commit()
+		#db.session.commit()	
 		clear()
 		return redirect(url_for('dashboard'))
 	return render_template('createuser2.html', title='createuser2', form=Personal)
 	
+
+@Orbitus.route('/signin', methods=['GET', 'POST'])
+def signin():
+    if current_user.is_authenticated:
+        return redirect(url_for('dashboard'))
+    form = LogIn()
+    if form.validate_on_submit():
+        user = Main.query.filter_by(Username=form.Username.data).first()
+        if user and crypter.check_password_hash(user.Password, form.Password.data):
+            login_user(user, remember=form.remember.data)
+            next_page = request.args.get('next')
+            return redirect(next_page) if next_page else redirect(url_for('dashboard'))
+        else:
+            flash('Signin Unsuccessful. Please check Username and password', 'danger')
+    return render_template('signin.html', title='Signin', form=form)
+ 
+
+@Orbitus.route('/signout')
+def signout():
+	logout_user()
+	return redirect(url_for('signin'))
+
 @Orbitus.route('/dashboard', methods=['GET','POST'])
 def dashboard():
 	return render_template('dashboard.html')
