@@ -49,7 +49,7 @@ def signup():
 def createuser():
 	User = Username()	#These are the forms
 	if User.validate_on_submit():
-		hashed_pw = crypter.generate_password_hash(User.Password.data).decode('utf-8')
+		hashed_pw = crypter.generate_password_hash(User.Password.data).encode('utf-8')
 		UP(uname=User.Username.data, passwd=hashed_pw)
 		db.session.add(d_user)
 		db.session.commit()
@@ -73,25 +73,21 @@ def createuser2():
 def signin():
     if current_user.is_authenticated:
         return redirect(url_for('dashboard'))
-    SignIn = LogIn()
-    if SignIn.validate_on_submit():
-	    	user = Main.query.filter_by(Username=SignIn.Username.data).first()
-	    	if user and crypter.check_password_hash(user.Password, SignIn.Password.data):
-	        	login_user(user, remember=SignIn.RememberMe.data)
-	        	next_page = request.args.get('next')
-	        return redirect(url_for('dashboard'))
-		else:
-	       flash('Login unsuccesfull. Please check your username and password.','Danger')
-    return render_template('signin.html', title='Signin', form=SignIn)
+    form = LogIn()
+    if form.validate_on_submit():
+        user = Main.query.filter_by(Username=form.Username.data).first()
+        if user and crypter.check_password_hash(user.Password, form.Password.data):
+            login_user(user, remember=form.RememberMe.data)
+            next_page = request.args.get('next')
+            return redirect(next_page) if next_page else redirect(url_for('dashboard'))
+        else:
+            flash('Signin Unsuccessful. Please check Username and password', 'danger')
+    return render_template('signin.html', title='Signin', form=form)
  
 @Orbitus.route('/creategroup', methods=['GET', 'POST'])
 def creategroup():
 	group = Group()
 	return render_template('creategroup.html', title='Create Group', form=group)
-	
-@Orbitus.route('/searchgroup', methods=['GET', 'POST'])
-def searchgroup():
-	return render_template('searchgroup.html', title='Create Group')
 
 @Orbitus.route('/signout')
 def signout():
