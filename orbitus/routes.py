@@ -59,16 +59,9 @@ def createuser():
 		return redirect(url_for('signin'))
 	return render_template('createuser.html', title='createuser', form=User)
 
-@Orbitus.route('/createuser2', methods=['GET','POST'])
-def createuser2():
-	Personal = PersonalInfo()	#These are the forms
-	if Personal.validate_on_submit():
-		#A(age=Personal.Age.data)
-		#db.session.add(d_user)
-		#db.session.commit()
-		clear()
-		return redirect(url_for('dashboard'))
-	return render_template('createuser2.html', title='createuser2', form=Personal)
+@Orbitus.route('/searchgroup', methods=['GET','POST'])
+def searchgroup():
+	return render_template('searchgroup.html', title='searchgroup')
 	
 @Orbitus.route('/dashboard', methods=['GET','POST'])
 def dashboard():
