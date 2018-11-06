@@ -88,6 +88,10 @@ def signin():
 def creategroup():
 	group = Group()
 	return render_template('creategroup.html', title='Create Group', form=group)
+	
+@Orbitus.route('/searchgroup', methods=['GET', 'POST'])
+def searchgroup():
+	return render_template('searchgroup.html', title='Create Group')
 
 @Orbitus.route('/signout')
 def signout():
