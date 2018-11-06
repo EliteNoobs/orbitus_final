@@ -47,6 +47,24 @@
 									background-color: rgba(38, 255, 100, 0.2);
 									display: none" 
 								class="alert alert-dismissable"><a class="close" data-dismiss="alert" href="#">X</a>Congratulations! You have successfully registered. Please sign in.</div>
+						{% if value %}
+						<div id="dialog" style="left: 0vw; 
+									border: solid 1px black;
+									border-radius: 10px; 
+									max-width: 768px;
+									background-color: rgba(38, 255, 100, 0.2);
+									display: none" 
+								class="alert alert-dismissable"><a class="close" data-dismiss="alert" href="#">X</a>Congratulations! You have successfully registered. Please sign in.</div>
+						{% else %}
+						<div id="dialog" style="left: 0vw; 
+									border: solid 1px black;
+									border-radius: 10px; 
+									max-width: 768px;
+									background-color: rgba(255, 38, 10, 0.2);
+									display: block" 
+								class="alert alert-dismissable"><a class="close" data-dismiss="alert" href="#">X</a>Please enter the correct account details.</div>
+						{% endif %}
+
 						<div class="loginbox">
 							<form method="POST" action="">
 								<div class="form-group">
