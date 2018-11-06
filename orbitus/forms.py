@@ -22,11 +22,6 @@ class Username(FlaskForm):
 		current = Main.query.filter_by(Username=Username.data).first()
 		if current:
 			raise ValidationError('This username has already been registered!')
-	
-
-class PersonalInfo(FlaskForm):
-	Age = IntegerField('Age', validators=[DataRequired(), Length(min=0)])
-	SignUp = SubmitField('Finish Registration')
 
 
 class LogIn(FlaskForm):
@@ -35,8 +30,7 @@ class LogIn(FlaskForm):
 	RememberMe = BooleanField('Remember Me')
 	login = SubmitField('Log In')
 	
-class Group(FlaskForm):
+class GroupForm(FlaskForm):
 	Name = StringField('Name', validators=[DataRequired(), Length(min=8)])
-	MaxMembers = IntegerField('Maximum members', validators=[DataRequired(), Length(min=0)])
 	Description = TextAreaField('Description', validators=[DataRequired(), Length(min=20)])
 	creategroupbtn = SubmitField('Create your Group')

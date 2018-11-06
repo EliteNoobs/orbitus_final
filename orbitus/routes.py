@@ -1,6 +1,6 @@
 from flask import render_template, flash, redirect, url_for, request
-from orbitus.models import Group, Main
-from orbitus.forms import Register, LogIn, Username, PersonalInfo, Group
+from orbitus.models import GroupModel, Main
+from orbitus.forms import Register, LogIn, Username, GroupForm
 from orbitus import Orbitus, db, crypter
 from flask_login import login_required,login_user, current_user, logout_user, login_required
 
@@ -17,16 +17,12 @@ def UP(uname,passwd):
 	d_user.Username = uname
 	d_user.Password = passwd
 
-def A(age):
-	d_user.Age = age
-
 #These will put in the default values
 def clear():
 	d_user.FullName = ''
 	d_user.EMAIL = ''
 	d_user.Username = ''
 	d_user.Password = ''
-	d_user.Age = 10
 
 clear()
 
@@ -49,7 +45,7 @@ def signup():
 def createuser():
 	User = Username()	#These are the forms
 	if User.validate_on_submit():
-		hashed_pw = crypter.generate_password_hash(User.Password.data).encode('utf-8')
+		hashed_pw = crypter.generate_password_hash(User.Password.data).decode('utf-8')
 		UP(uname=User.Username.data, passwd=hashed_pw)
 		db.session.add(d_user)
 		db.session.commit()
@@ -57,18 +53,22 @@ def createuser():
 		return redirect(url_for('signin'))
 	return render_template('createuser.html', title='createuser', form=User)
 
-@Orbitus.route('/createuser2', methods=['GET','POST'])
-def createuser2():
-	Personal = PersonalInfo()	#These are the forms
-	if Personal.validate_on_submit():
-		#A(age=Personal.Age.data)
-		#db.session.add(d_user)
-		#db.session.commit()	
-		clear()
+@Orbitus.route('/creategroup', methods=['GET', 'POST'])
+def creategroup():
+	Group = GroupForm()
+	if Group.validate_on_submit():
+		group_model = GroupModel()
+		group_model.groupname = Group.Name.data
+		group_model.Description = Group.Description.data
+		db.session.add(group_model)
+		db.session.commit()
 		return redirect(url_for('dashboard'))
-	return render_template('createuser2.html', title='createuser2', form=Personal)
-	
+	return render_template('creategroup.html', title='Create Group', form=Group)
 
+@Orbitus.route('/searchgroup', methods=['GET','POST'])
+def searchgroup():
+	return render_template('searchgroup.html', title='searchgroup')
+	
 @Orbitus.route('/signin', methods=['GET', 'POST'])
 def signin():
     if current_user.is_authenticated:
@@ -84,10 +84,11 @@ def signin():
             flash('Signin Unsuccessful. Please check Username and password', 'danger')
     return render_template('signin.html', title='Signin', form=form)
  
-@Orbitus.route('/creategroup', methods=['GET', 'POST'])
-def creategroup():
-	group = Group()
-	return render_template('creategroup.html', title='Create Group', form=group)
+@Orbitus.route('/account')
+@login_required
+def account():
+	profile_pic = url_for('static', filename='profile_picture/' + current_main.profile_pic)
+	return render_template('account.html', title='Account')
 
 @Orbitus.route('/signout')
 def signout():
@@ -95,6 +96,7 @@ def signout():
 	return redirect(url_for('signin'))
 
 @Orbitus.route('/dashboard', methods=['GET','POST'])
+@login_required
 def dashboard():
 	return render_template('dashboard.html')
 
