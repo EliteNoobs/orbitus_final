@@ -30,7 +30,7 @@ class PersonalInfo(FlaskForm):
 
 
 class LogIn(FlaskForm):
-	Username = StringField('Username', validators=[DataRequired(), Length(min=6)])
-	Password = PasswordField('Password', validators=[DataRequired(), Length(min=8, max=64)])
+	Username = StringField('Username', validators=[DataRequired()])
+	Password = PasswordField('Password', validators=[DataRequired()])
 	RememberMe = BooleanField('Remember Me')
 	login = SubmitField('Log In')

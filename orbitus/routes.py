@@ -73,16 +73,16 @@ def createuser2():
 def signin():
     if current_user.is_authenticated:
         return redirect(url_for('dashboard'))
-    form = LogIn()
-    if form.validate_on_submit():
-        user = Main.query.filter_by(Username=form.Username.data).first()
-        if user and crypter.check_password_hash(user.Password, form.Password.data):
-            login_user(user, remember=form.remember.data)
-            next_page = request.args.get('next')
-            return redirect(next_page) if next_page else redirect(url_for('dashboard'))
-        else:
-            flash('Signin Unsuccessful. Please check Username and password', 'danger')
-    return render_template('signin.html', title='Signin', form=form)
+    SignIn = LogIn()
+    if SignIn.validate_on_submit():
+	    	user = Main.query.filter_by(Username=SignIn.Username.data).first()
+	    	if user and crypter.check_password_hash(user.Password, SignIn.Password.data):
+	        	login_user(user, remember=SignIn.RememberMe.data)
+	        	next_page = request.args.get('next')
+	        return redirect(url_for('dashboard'))
+		else:
+	       flash('Login unsuccesfull. Please check your username and password.','Danger')
+    return render_template('signin.html', title='Signin', form=SignIn)
  
 
 @Orbitus.route('/signout')
