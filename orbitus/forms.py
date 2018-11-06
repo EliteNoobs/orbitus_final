@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, BooleanField, IntegerField
+from wtforms import StringField, PasswordField, SubmitField, BooleanField, IntegerField, TextAreaField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
 from orbitus.models import Main
 
@@ -34,3 +34,9 @@ class LogIn(FlaskForm):
 	Password = PasswordField('Password', validators=[DataRequired()])
 	RememberMe = BooleanField('Remember Me')
 	login = SubmitField('Log In')
+	
+class Group(FlaskForm):
+	Name = StringField('Name', validators=[DataRequired(), Length(min=8)])
+	MaxMembers = IntegerField('Maximum members', validators=[DataRequired(), Length(min=0)])
+	Description = TextAreaField('Description', validators=[DataRequired(), Length(min=20)])
+	creategroupbtn = SubmitField('Create your Group')
