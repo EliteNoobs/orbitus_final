@@ -4,6 +4,7 @@ from orbitus.forms import Register, LogIn, Username, PersonalInfo, Group
 from orbitus import Orbitus, db, crypter
 from flask_login import login_required,login_user, current_user, logout_user, login_required
 
+correctInfo = True #This is used to show the incorrect username or password error while signing in.
 
 #Dummy user
 d_user = Main()
@@ -33,7 +34,9 @@ clear()
 @Orbitus.route('/')
 @Orbitus.route('/index')
 def index():
-    return render_template('index.html')
+        global correctInfo
+        correctInfo = True
+        return render_template('index.html')
 
 
 @Orbitus.route('/signup', methods=['GET','POST'])
@@ -76,13 +79,16 @@ def signin():
     form = LogIn()
     if form.validate_on_submit():
         user = Main.query.filter_by(Username=form.Username.data).first()
+        global correctInfo
         if user and crypter.check_password_hash(user.Password, form.Password.data):
+            correctInfo = True
             login_user(user, remember=form.RememberMe.data)
             next_page = request.args.get('next')
             return redirect(next_page) if next_page else redirect(url_for('dashboard'))
         else:
+            correctInfo = False
             flash('Signin Unsuccessful. Please check Username and password', 'danger')
-    return render_template('signin.html', title='Signin', form=form)
+    return render_template('signin.html', title='Signin', form=form, value=correctInfo) #This variable will be used in HTML to see if user has entered correct details or not
  
 @Orbitus.route('/creategroup', methods=['GET', 'POST'])
 def creategroup():
