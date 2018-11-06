@@ -32,6 +32,8 @@ clear()
 def index():
         global correctInfo
         correctInfo = True
+        if current_user.is_authenticated:
+        	return redirect(url_for('dashboard'))
         return render_template('index.html')
 
 
