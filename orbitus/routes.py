@@ -59,6 +59,7 @@ def createuser():
 	return render_template('createuser.html', title='createuser', form=User)
 
 @Orbitus.route('/creategroup', methods=['GET', 'POST'])
+@login_required
 def creategroup():
 	Group = GroupForm()
 	if Group.validate_on_submit():
@@ -71,6 +72,7 @@ def creategroup():
 	return render_template('creategroup.html', title='Create Group', form=Group)
 
 @Orbitus.route('/searchgroup', methods=['GET','POST'])
+@login_required
 def searchgroup():
 	return render_template('searchgroup.html', title='searchgroup')
 	
@@ -92,11 +94,10 @@ def signin():
             flash('Signin Unsuccessful. Please check Username and password', 'danger')
     return render_template('signin.html', title='Signin', form=form, value=correctInfo) #This variable will be used in HTML to see if user has entered correct details or not
  
-@Orbitus.route('/account')
+@Orbitus.route('/myaccount')
 @login_required
-def account():
-	profile_pic = url_for('static', filename='profile_picture/' + current_main.profile_pic)
-	return render_template('account.html', title='Account')
+def myaccount():
+	return render_template('myaccount.html', title='Account')
 
 @Orbitus.route('/signout')
 def signout():
