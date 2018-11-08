@@ -34,3 +34,11 @@ class GroupForm(FlaskForm):
 	Name = StringField('Name', validators=[DataRequired(), Length(min=8)])
 	Description = TextAreaField('Description', validators=[DataRequired(), Length(min=20)])
 	creategroupbtn = SubmitField('Create your Group')
+	
+class MyAccount(FlaskForm):
+	FullName = StringField('Full Name')
+	Username = StringField('Username', validators=[Length(min=6)])
+	NewPass = PasswordField('New Password', validators=[Length(min=8, max=64)])
+	ConfirmPass = PasswordField('Confirm Password', validators=[EqualTo('NewPass')])
+	Email = StringField('E-mail', validators=[Email()])
+	Save = SubmitField('Save Changes')

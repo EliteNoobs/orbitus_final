@@ -1,6 +1,6 @@
 from flask import render_template, flash, redirect, url_for, request
 from orbitus.models import GroupModel, Main
-from orbitus.forms import Register, LogIn, Username, GroupForm
+from orbitus.forms import Register, LogIn, Username, GroupForm, MyAccount
 from orbitus import Orbitus, db, crypter
 from flask_login import login_required,login_user, current_user, logout_user, login_required
 
@@ -97,7 +97,8 @@ def signin():
 @Orbitus.route('/myaccount')
 @login_required
 def myaccount():
-	return render_template('myaccount.html', title='Account')
+	account = MyAccount()
+	return render_template('myaccount.html', title='Account', form=account)
 
 @Orbitus.route('/signout')
 def signout():
