@@ -1,6 +1,6 @@
 from flask import render_template, flash, redirect, url_for, request
 from orbitus.models import GroupModel, Main
-from orbitus.forms import Register, LogIn, Username, GroupForm
+from orbitus.forms import Register, LogIn, Username, GroupForm, MyAccount
 from orbitus import Orbitus, db, crypter
 from flask_login import login_required,login_user, current_user, logout_user, login_required
 
@@ -59,6 +59,7 @@ def createuser():
 	return render_template('createuser.html', title='createuser', form=User)
 
 @Orbitus.route('/creategroup', methods=['GET', 'POST'])
+@login_required
 def creategroup():
 	Group = GroupForm()
 	if Group.validate_on_submit():
@@ -74,6 +75,7 @@ def JoinGroup(gid):
 	current_user.group_id = gid
 
 @Orbitus.route('/searchgroup', methods=['GET','POST'])
+@login_required
 def searchgroup():
 	search = GroupModel()
 	groups = search.query.all()
@@ -97,11 +99,11 @@ def signin():
             flash('Signin Unsuccessful. Please check Username and password', 'danger')
     return render_template('signin.html', title='Signin', form=form, value=correctInfo) #This variable will be used in HTML to see if user has entered correct details or not
  
-@Orbitus.route('/account')
+@Orbitus.route('/myaccount')
 @login_required
-def account():
-	profile_pic = url_for('static', filename='profile_picture/' + current_main.profile_pic)
-	return render_template('account.html', title='Account')
+def myaccount():
+	account = MyAccount()
+	return render_template('myaccount.html', title='Account', form=account)
 
 @Orbitus.route('/signout')
 def signout():
