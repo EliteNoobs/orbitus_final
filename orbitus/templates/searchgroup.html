@@ -24,7 +24,7 @@
 	<div class="rect animated flipInX">
 		<div class="rect2">
 			<div class="rect3" style="top: 20px; height: 90%">
-				<div style="height: 43vh;
+				<div style="height: 80%;
 							width: calc(60vw);
 							top: 6vh;
 							left: calc(10vw - 20px);
@@ -34,14 +34,26 @@
 							border-width: thin;
 							border-style: none;
 							border-color: #1E0731;
-							text-align: left">
-					<div class="bodyContent">
-					{%for group in groups%}
-					{{group.id}}
-					{{group.groupname}}
-					{{group.Description}}<br>
-					{%endfor%}
-					</div>
+							text-align: left;
+							color: #FFF;">
+					{% for group in groups %}
+						<div class="row groupdisplay">
+							<div class="gid">
+								{{group.id}}
+							</div>
+							<div class="gname">
+								{{group.groupname}}
+							</div>
+							<div class=""></div>
+							<div class="gdesc">
+								{{group.Description}}
+							</div>
+							<div class=""></div>
+							<div class="">
+								<input type="submit" value="Join">
+							</div>
+						</div><br>
+					{% endfor %}
 				</div>
 			</div>
 
