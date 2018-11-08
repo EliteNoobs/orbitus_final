@@ -38,7 +38,11 @@
 							border-color: #1E0731;
 							text-align: left">
 					<div class="bodyContent">
-
+					{%for group in groups%}
+					{{group.id}}
+					{{group.groupname}}
+					{{group.Description}}<br>
+					{%endfor%}
 					</div>
 				</div>
 			</div>
