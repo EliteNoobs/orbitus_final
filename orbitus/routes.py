@@ -133,3 +133,8 @@ def offline():
 @Orbitus.route('/service-worker.js')
 def sw():
     return Orbitus.send_static_file('service-worker.js')
+
+#This is the page not found page
+@Orbitus.errorhandler(404)
+def page_not_found(e):
+	return render_template('404.html'), 404
