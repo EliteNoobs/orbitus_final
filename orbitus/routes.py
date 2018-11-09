@@ -80,7 +80,14 @@ def searchgroup():
 	search = GroupModel()
 	groups = search.query.all()
 	return render_template('searchgroup.html', title='searchgroup', groups=groups)
-	
+
+@Orbitus.route('/join/<int:group_id>', methods=['GET,POST'])
+@login_required
+def join(group_id):
+	current_user.group_id = group_id
+	return redirect(url_for('dashboard'))
+
+
 @Orbitus.route('/signin', methods=['GET', 'POST'])
 def signin():
     if current_user.is_authenticated:
