@@ -22,6 +22,7 @@ class Main(db.Model, UserMixin):
 	id = db.Column(db.Integer, primary_key=True)
 	FullName = db.Column(db.String(40), nullable=False)
 	EMAIL = db.Column(db.String(120),unique=True, nullable=False)
+	profile_pic = db.Column(db.String(20),nullable=False,default='default_pic.png')
 	Username = db.Column(db.String(40),unique=True, nullable=False)
 	Password = db.Column(db.String(64), nullable=False)
 	#group = db.relationship('GroupModel', backref='member', lazy=True)
