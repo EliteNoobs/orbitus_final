@@ -6,5 +6,6 @@ pip install :-
     flask_wtf
     wtforms
     bcrypt
+    flask_bcrypt
     flask-login
     flask-sqlalchemy
