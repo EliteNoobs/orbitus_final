@@ -13,10 +13,11 @@ class GroupModel(db.Model):
 	groupname = db.Column(db.String(32), nullable=False)
 	Description = db.Column(db.String(120), nullable=False)
 	default_picture = db.Column(db.String(20), default='default.jpg')
-	main = db.relationship('Main', backref='member',lazy=True)
+	main = db.relationship('Main', backref='member',lazy=True)	
+
 	def __repr__(self):
 		return f"('{self.id}', '{self.groupname}', '{self.Description}', '{self.default_picture}','{self.main}')"
-
+	
 
 class Main(db.Model, UserMixin):
 	id = db.Column(db.Integer, primary_key=True)
@@ -29,4 +30,3 @@ class Main(db.Model, UserMixin):
 	group_id = db.Column(db.Integer,db.ForeignKey(GroupModel.id), nullable=True)
 	def __repr__(self):
 		return f"('{self.id}','{self.FullName}', '{self.EMAIL}', '{self.Username}','{self.profile_pic}','{self.Password}','{self.group_id}')"
-

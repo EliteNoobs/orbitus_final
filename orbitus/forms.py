@@ -31,7 +31,7 @@ class LogIn(FlaskForm):
 	login = SubmitField('Log In')
 	
 class GroupForm(FlaskForm):
-	Name = StringField('Name', validators=[DataRequired(), Length(min=8)])
+	GroupName = StringField('Name', validators=[DataRequired(), Length(min=8)])
 	Description = TextAreaField('Description', validators=[DataRequired(), Length(min=20)])
 	creategroupbtn = SubmitField('Create your Group')
 	

@@ -64,17 +64,22 @@ def creategroup():
 	Group = GroupForm()
 	if Group.validate_on_submit():
 		group_model = GroupModel()
-		group_model.groupname = Group.Name.data
+		group_model.groupname = Group.GroupName.data
 		group_model.Description = Group.Description.data
 		db.session.add(group_model)
 		db.session.commit()
 		return redirect(url_for('dashboard'))
 	return render_template('creategroup.html', title='Create Group', form=Group)
 
+def JoinGroup(gid):
+	current_user.group_id = gid
+
 @Orbitus.route('/searchgroup', methods=['GET','POST'])
 @login_required
 def searchgroup():
-	return render_template('searchgroup.html', title='searchgroup')
+	search = GroupModel()
+	groups = search.query.all()
+	return render_template('searchgroup.html', title='searchgroup', groups=groups)
 	
 @Orbitus.route('/signin', methods=['GET', 'POST'])
 def signin():
