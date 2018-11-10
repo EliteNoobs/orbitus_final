@@ -96,7 +96,7 @@ def signin():
         return redirect(url_for('dashboard'))
     form = LogIn()
     if form.validate_on_submit():
-        user = Main.query.filter_by(Username=form.Username.data).first()
+        user = User.query.filter_by(Username=form.Username.data).first()
         global correctInfo
         if user and crypter.check_password_hash(user.Password, form.Password.data):
             correctInfo = True
