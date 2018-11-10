@@ -1,7 +1,7 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, BooleanField, IntegerField, TextAreaField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
-from orbitus.models import Main
+from orbitus.models import User
 
 class Register(FlaskForm):
 	FullName = StringField('Full Name', validators=[DataRequired()])
@@ -19,7 +19,7 @@ class Username(FlaskForm):
 	ConfirmPassword = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('Password')])
 	SignUp = SubmitField('SignUp')
 	def validate_Username(self,Username):
-		current = Main.query.filter_by(Username=Username.data).first()
+		current = User.query.filter_by(Username=Username.data).first()
 		if current:
 			raise ValidationError('This username has already been registered!')
 
@@ -34,6 +34,10 @@ class GroupForm(FlaskForm):
 	GroupName = StringField('Name', validators=[DataRequired(), Length(min=8)])
 	Description = TextAreaField('Description', validators=[DataRequired(), Length(min=20)])
 	creategroupbtn = SubmitField('Create your Group')
+	def validate_Group(self,GroupName):
+		current = GroupModel.query.filter_by(groupname=GroupName.data).first()
+		if current:
+			raise ValidationError('This username has already been registered!')
 	
 class MyAccount(FlaskForm):
 	FullName = StringField('Full Name')

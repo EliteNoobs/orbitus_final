@@ -50,7 +50,11 @@
 							</div>
 							<div class=""></div>
 							<div class="">
-								<input type="submit" value="Join" onclick="{{url_for('join',group_id=group.id)}}">
+								<form method="POST">
+										<button type="submit" value="{{group.id}}" name="Join">
+											Join
+										</button>
+								</form>
 							</div>
 						</div><br>
 					{% endfor %}

@@ -1,5 +1,5 @@
 from flask import render_template, flash, redirect, url_for, request
-from orbitus.models import GroupModel, Main
+from orbitus.models import GroupModel, User
 from orbitus.forms import Register, LogIn, Username, GroupForm, MyAccount
 from orbitus import Orbitus, db, crypter
 from flask_login import login_required,login_user, current_user, logout_user, login_required
@@ -7,7 +7,7 @@ from flask_login import login_required,login_user, current_user, logout_user, lo
 correctInfo = True #This is used to show the incorrect username or password error while signing in.
 
 #Dummy user
-d_user = Main()
+d_user = User()
 db.create_all()
 
 def FE(name,mail):
@@ -71,21 +71,23 @@ def creategroup():
 		return redirect(url_for('dashboard'))
 	return render_template('creategroup.html', title='Create Group', form=Group)
 
-def JoinGroup(gid):
-	current_user.group_id = gid
 
 @Orbitus.route('/searchgroup', methods=['GET','POST'])
 @login_required
 def searchgroup():
 	search = GroupModel()
 	groups = search.query.all()
-	return render_template('searchgroup.html', title='searchgroup', groups=groups)
-
-@Orbitus.route('/join/<int:group_id>', methods=['GET,POST'])
-@login_required
-def join(group_id):
-	current_user.group_id = group_id
-	return redirect(url_for('dashboard'))
+	#group_id = request.args.get('groupid',default=None,type=int)
+	if request.method == "POST":
+		button = request.form
+		for key,value in button.items():
+			current_group = GroupModel.query.filter_by(id=value).first()
+			if len(current_group.users) < 30:
+				current_user.group_id = value
+				db.session.commit()
+			else:
+				return(redirect(url_for('dashboard')))
+	return render_template('searchgroup.html', title='searchgroup', groups=groups)#, current=current_user)
 
 
 @Orbitus.route('/signin', methods=['GET', 'POST'])

@@ -13,13 +13,14 @@ class GroupModel(db.Model):
 	groupname = db.Column(db.String(32), nullable=False)
 	Description = db.Column(db.String(120), nullable=False)
 	default_picture = db.Column(db.String(20), default='default.jpg')
-	main = db.relationship('Main', backref='member',lazy=True)	
+	users = db.relationship('User', backref='member',lazy=True)	
 
 	def __repr__(self):
 		return f"('{self.id}', '{self.groupname}', '{self.Description}', '{self.default_picture}','{self.main}')"
 	
 
-class Main(db.Model, UserMixin):
+class User(db.Model, UserMixin):
+	__tablename__	= 'User'
 	id = db.Column(db.Integer, primary_key=True)
 	FullName = db.Column(db.String(40), nullable=False)
 	EMAIL = db.Column(db.String(120),unique=True, nullable=False)
