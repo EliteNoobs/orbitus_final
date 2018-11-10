@@ -1,6 +1,6 @@
 from flask import render_template, flash, redirect, url_for, request
-from orbitus.models import GroupModel, User
-from orbitus.forms import Register, LogIn, Username, GroupForm, MyAccount
+from orbitus.models import GroupModel, User, Events
+from orbitus.forms import Register, LogIn, Username, GroupForm, MyAccount, EventsForm
 from orbitus import Orbitus, db, crypter
 from flask_login import login_required,login_user, current_user, logout_user, login_required
 
@@ -113,6 +113,19 @@ def signin():
 def myaccount():
 	account = MyAccount()
 	return render_template('myaccount.html', title='Account', form=account)
+
+@Orbitus.route('/hostanevent', methods = ['GET', 'POST'])
+@login_required
+def hostanevent():
+	form = EventsForm()
+	if form.validate_on_submit():
+		event = Events(EventName=form.EventName.data, Description=form.Description.data)
+		db.session.add(event)
+		db.session.commit()
+		flash('Your Event has been created!', 'success')	
+		return redirect(url_for('dashboard'))
+	return render_template('hostanevent.html', title='Event', form=form)
+
 
 @Orbitus.route('/signout')
 def signout():
