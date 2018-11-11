@@ -1,3 +1,5 @@
+import secrets
+import os
 from flask import render_template, flash, redirect, url_for, request
 from orbitus.models import GroupModel, User, Events
 from orbitus.forms import Register, LogIn, Username, GroupForm, MyAccount, EventsForm
@@ -107,12 +109,36 @@ def signin():
             correctInfo = False
             flash('Signin Unsuccessful. Please check Username and password', 'danger')
     return render_template('signin.html', title='Signin', form=form, value=correctInfo) #This variable will be used in HTML to see if user has entered correct details or not
+
+
+def save_picture(form_picture):
+	random_hex = secrets.token_hex(8)
+	_, f_ext = os.path.splitext(form_picture.filename)
+	picture_fn = random_hex + f_ext
+	picture_path = os.path.join(app.root_path, 'static/profile_pics', picture_fn)
+	form_picture.save(picture_path)
+	return picture_fn
  
 @Orbitus.route('/myaccount')
 @login_required
 def myaccount():
 	account = MyAccount()
-	return render_template('myaccount.html', title='Account', form=account)
+	if  form.validate_on_submit():
+		if form.picture.data:
+			picture_file = save_picture(form.picture.data)
+			current_user.profile_pic = picture_file
+		current_user.Username = form.Username.data
+		current_user.EMAIL = form.EMAIL.data
+		current_user.FullName = form.FullName.data
+		db.session.commit()
+		flash('Your Account has been updates!')
+		return redirect(url_for('myaccount'))
+	elif request.method == 'GET':
+		form.Username.data = current_user.Username
+		form.EMAIL.data = current_user.EMAIL
+		form.FullName.data = current_user.FullName
+	profile_pic = url_for('static', filename='profile_pics/' + current_user.profile_pic)
+	return render_template('myaccount.html', title='Account', form=account, profile_pic=profile_pic)
 
 @Orbitus.route('/hostanevent', methods = ['GET', 'POST'])
 @login_required

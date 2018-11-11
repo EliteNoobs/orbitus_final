@@ -1,4 +1,6 @@
 from flask_wtf import FlaskForm
+from flask_wtf.file import FileField, FileAllowed
+from flask_login import current_user
 from wtforms import StringField, PasswordField, SubmitField, BooleanField, IntegerField, TextAreaField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
 from orbitus.models import User, Events
@@ -45,7 +47,18 @@ class MyAccount(FlaskForm):
 	NewPass = PasswordField('New Password', validators=[Length(min=8, max=64)])
 	ConfirmPass = PasswordField('Confirm Password', validators=[EqualTo('NewPass')])
 	Email = StringField('E-mail', validators=[Email()])
+	picture = FileField('Update Profile Picture', validators=[FileAllowed(['jpg', 'png', 'gif', 'jpeg'])])
 	Save = SubmitField('Save Changes')
+	def validate_Email(self,Email):
+		if Username.data != current_user.Username:
+			current = Main.query.filter_by(Email=Email.data).first()
+			if current:
+				raise ValidationError('This E-Mail has already been registered!')
+	def validate_Username(self,Username):
+		if Username.data != current_user.Username:
+			current = Main.query.filter_by(Username=Username.data).first()
+			if current:
+				raise ValidationError('This username is your current username!')
 
 class EventsForm(FlaskForm):
 	EventName = StringField('Event Name', validators=[Length(min=8, max=64)])
