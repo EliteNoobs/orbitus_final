@@ -47,7 +47,8 @@
 						</div>
 					</div>
 					<div style="width: 40vw; min-width: 200px; max-width: 400px; margin-left: 2vw; ">
-						<form method="POST" action="">
+						<form method="POST" action="" autocomplete="off">
+							<input type="text" name="hidden" autocomplete="off" style="display: none">
 							{{form.hidden_tag()}}
 								{{form.FullName.label(class="form-control-label")}}
 								 {% if form.FullName.errors %}
@@ -81,7 +82,8 @@
 					<div style="width: 25vw; max-width: 165px;">
 					</div>
 					<div style="width: 40vw; min-width: 200px; max-width: 400px; margin-left: 2vw;">
-						<form method="POST" action="">
+						<form method="POST" action="" autocomplete="off">
+							<input type="text" name="hidden" autocomplete="off" style="display: none">
 							{{form.hidden_tag()}}
 								{{form.NewPass.label(class="form-control-label")}}
 								 {% if form.NewPass.errors %}
@@ -101,7 +103,8 @@
 					<div style="width: 25vw; max-width: 165px;">
 					</div>
 					<div style="width: 40vw; min-width: 200px; max-width: 400px; margin-left: 2vw;">
-						<form method="POST" action="">
+						<form method="POST" action="" autocomplete="off">
+							<input type="text" name="hidden" autocomplete="off" style="display: none">
 							{{form.hidden_tag()}}
 								{{form.ConfirmPass.label(class="form-control-label")}}
 								 {% if form.ConfirmPass.errors %}
@@ -121,7 +124,8 @@
 					<div style="width: 25vw; max-width: 165px;">
 					</div>
 					<div style="width: 40vw; min-width: 200px; max-width: 400px; margin-left: 2vw;">
-						<form method="POST" action="">
+						<form method="POST" action="" autocomplete="off">
+							<input type="text" name="hidden" autocomplete="off" style="display: none">
 							{{form.hidden_tag()}}
 								{{form.Email.label(class="form-control-label")}}
 								 {% if form.Email.errors %}

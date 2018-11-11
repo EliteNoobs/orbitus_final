@@ -8,7 +8,7 @@ class Register(FlaskForm):
 	EMAIL = StringField('E-Mail', validators=[DataRequired(), Email()])
 	Proceed = SubmitField('Proceed')
 	def validate_EMAIL(self,EMAIL):
-		current = Main.query.filter_by(EMAIL=EMAIL.data).first()
+		current = User.query.filter_by(EMAIL=EMAIL.data).first()
 		if current:
 			raise ValidationError('This E-Mail has already been registered!')
 
