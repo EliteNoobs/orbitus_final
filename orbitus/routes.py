@@ -112,12 +112,17 @@ def signin():
 
 
 def save_picture(form_picture):
-	random_hex = secrets.token_hex(8)
-	_, f_ext = os.path.splitext(form_picture.filename)
-	picture_fn = random_hex + f_ext
-	picture_path = os.path.join(Orbitus.root_path, 'static/profile_pics', picture_fn)
-	form_picture.save(picture_path)
-	return picture_fn
+    random_hex = secrets.token_hex(8)
+    _, f_ext = os.path.splitext(form_picture.filename)
+    picture_fn = random_hex + f_ext
+    picture_path = os.path.join(Orbitus.root_path, 'static/profile_pics', picture_fn)
+
+    output_size = (125, 125)
+    i = Image.open(form_picture)
+    i.thumbnail(output_size)
+    i.save(picture_path)
+
+    return picture_fn
  
 @Orbitus.route('/myaccount', methods=['GET', 'POST'])
 @login_required
@@ -130,13 +135,14 @@ def myaccount():
 		current_user.Username = form.Username.data
 		current_user.EMAIL = form.EMAIL.data
 		current_user.FullName = form.FullName.data
+		current_user.NewPass = form.NewPass.data
+		current_user.ConfirmPass = form.ConfirmPass.data
 		db.session.commit()
 		return redirect(url_for('myaccount'))
 	elif request.method == 'GET':
 		form.Username.data = current_user.Username
 		form.EMAIL.data = current_user.EMAIL
 		form.FullName.data = current_user.FullName
-		
 	profile_pic = url_for('static', filename='profile_pics/' + current_user.profile_pic)
 	return render_template('myaccount.html', title='Account', form=form, profile_pic=profile_pic)
 

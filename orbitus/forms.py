@@ -43,7 +43,7 @@ class GroupForm(FlaskForm):
 	
 class MyAccount(FlaskForm):
 	FullName = StringField('Full Name')
-	Username = StringField('Username', validators=[Length(min=6)])
+	Username = StringField('Username', validators=[Length(min=5)])
 	NewPass = PasswordField('New Password', validators=[Length(min=8, max=64)])
 	ConfirmPass = PasswordField('Confirm Password', validators=[EqualTo('NewPass')])
 	EMAIL = StringField('E-mail', validators=[Email()])
@@ -58,7 +58,7 @@ class MyAccount(FlaskForm):
 		if Username.data != current_user.Username:
 			current = User.query.filter_by(Username=Username.data).first()
 			if current:
-				raise ValidationError('This username is your current username!')
+				raise ValidationError('Please enter a new username')
 
 class EventsForm(FlaskForm):
 	EventName = StringField('Event Name', validators=[Length(min=8, max=64)])
