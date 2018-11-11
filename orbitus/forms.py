@@ -51,12 +51,12 @@ class MyAccount(FlaskForm):
 	Save = SubmitField('Save Changes')
 	def validate_Email(self,Email):
 		if Username.data != current_user.Username:
-			current = Main.query.filter_by(Email=Email.data).first()
+			current = User.query.filter_by(Email=Email.data).first()
 			if current:
 				raise ValidationError('This E-Mail has already been registered!')
 	def validate_Username(self,Username):
 		if Username.data != current_user.Username:
-			current = Main.query.filter_by(Username=Username.data).first()
+			current = User.query.filter_by(Username=Username.data).first()
 			if current:
 				raise ValidationError('This username is your current username!')
 

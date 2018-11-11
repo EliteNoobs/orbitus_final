@@ -131,12 +131,12 @@ def myaccount():
 		current_user.EMAIL = form.EMAIL.data
 		current_user.FullName = form.FullName.data
 		db.session.commit()
-		flash('Your Account has been updates!')
 		return redirect(url_for('myaccount'))
 	elif request.method == 'GET':
 		form.Username.data = current_user.Username
 		form.EMAIL.data = current_user.EMAIL
 		form.FullName.data = current_user.FullName
+		
 	profile_pic = url_for('static', filename='profile_pics/' + current_user.profile_pic)
 	return render_template('myaccount.html', title='Account', form=form, profile_pic=profile_pic)
 
