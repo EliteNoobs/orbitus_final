@@ -1,7 +1,7 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, BooleanField, IntegerField, TextAreaField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
-from orbitus.models import User
+from orbitus.models import User, Events
 
 class Register(FlaskForm):
 	FullName = StringField('Full Name', validators=[DataRequired()])
@@ -46,3 +46,8 @@ class MyAccount(FlaskForm):
 	ConfirmPass = PasswordField('Confirm Password', validators=[EqualTo('NewPass')])
 	Email = StringField('E-mail', validators=[Email()])
 	Save = SubmitField('Save Changes')
+
+class EventsForm(FlaskForm):
+	EventName = StringField('Event Name', validators=[Length(min=8, max=64)])
+	Description = TextAreaField('Description', validators=[DataRequired()])
+	Invite = SubmitField('Create Event')

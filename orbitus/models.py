@@ -1,6 +1,7 @@
+from datetime import datetime
 from orbitus import db, login_manager
 from flask_login import UserMixin
-from sqlalchemy import func
+
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -16,7 +17,7 @@ class GroupModel(db.Model):
 	users = db.relationship('User', backref='member',lazy=True)	
 
 	def __repr__(self):
-		return f"('{self.id}', '{self.groupname}', '{self.Description}', '{self.default_picture}','{self.main}')"
+		return f"('{self.id}', '{self.groupname}', '{self.Description}', '{self.default_picture}','{self.users}')"
 	
 
 class User(db.Model, UserMixin):
@@ -28,6 +29,19 @@ class User(db.Model, UserMixin):
 	Username = db.Column(db.String(40),unique=True, nullable=False)
 	Password = db.Column(db.String(64), nullable=False)
 	#group = db.relationship('GroupModel', backref='member', lazy=True)
-	group_id = db.Column(db.Integer,db.ForeignKey(GroupModel.id), nullable=True)
+	group_id = db.Column(db.Integer,db.ForeignKey('GroupModel.id'), nullable=True)
+	event_id = db.Column(db.Integer,db.ForeignKey('Events.id'))
 	def __repr__(self):
-		return f"('{self.id}','{self.FullName}', '{self.EMAIL}', '{self.Username}','{self.profile_pic}','{self.Password}','{self.group_id}')"
+		return f"('{self.id}','{self.FullName}', '{self.EMAIL}', '{self.Username}','{self.profile_pic}','{self.Password}','{self.group_id}', {self.event_id})"
+
+
+class Events(db.Model):
+	__tablename__ = 'Events'
+	id = db.Column(db.Integer, primary_key=True)
+	EventName = db.Column(db.String(64), nullable=False)
+	Description = db.Column(db.String, nullable=False)
+	time = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+	users = db.relationship('User', backref='author',lazy=True)
+
+	def __repr__(self):
+		return f"('{self.id}', '{self.EventName}', '{self.Description}', '{self.time}')"

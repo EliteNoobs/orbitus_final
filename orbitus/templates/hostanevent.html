@@ -4,7 +4,7 @@
 	{% endblock title %}
 	{% block navbar %}
 	<div class="header animated fadeIn">
-		"Insert Title Here"
+		Host An Event
 		<div id="toggleIcon" onclick="toggle(this)">
 			<div class="bar1"></div>
  			<div class="bar2"></div>
@@ -26,9 +26,46 @@
 	{% block content %}
 	<div class="rect animated slideInUp">
 		<div class="rect2">
-
-		</div>
-	</div>
+			<div class="hostevent">
+							<form method="POST" action="">
+								<div class="row">
+									<div class="form-event col-md-9 col-lg-9 col-xs-9">
+										{{form.hidden_tag()}}
+										{{form.EventName.label(class="form-control-label")}}
+										{% if form.EventName.errors %}
+				     					   {{ form.EventName(class="form-control form-control-lg is-invalid") }}
+				    						<div class="invalid-feedback">
+				                			{% for error in form.EventName.errors %}
+				                    			<span>{{ error }}</span>
+				            				{% endfor %}
+				    			        	</div>
+					                    {% else %}
+											{{form.EventName(class="form-control form-control-lg")}}
+										{% endif %}
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-12 col-lg-12 col-xs-12" style="max-width: 500px">
+										{{form.Description.label(class="form-control-label")}}
+										{% if form.Description.errors %}
+				     					   {{ form.Description(class="form-control form-control-lg is-invalid") }}
+				    						<div class="invalid-feedback">
+				                			{% for error in form.Description.errors %}
+				                    			<span>{{ error }}</span>
+				            				{% endfor %}
+				    			        	</div>
+					                    {% else %}
+											{{form.Description(class="form-control form-control-lg", cols="30", rows="5", style="border-color: rgb(0, 0, 0); transition: 200ms ease-in-out")}}
+										{% endif %}
+									</div>
+								</div>
+								<br>
+								<div class="form-event">
+									{{ form.Invite(class="btn btn-outline-info", style="max-width: 500px") }}
+								</div>
+							</form>
+						</div>
+					</div>
 	{% endblock content %}
 	{% block footer %}
 	&copy; Copyright 2018 Orbitus Pvt. Ltd.
