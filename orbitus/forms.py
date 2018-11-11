@@ -46,7 +46,7 @@ class MyAccount(FlaskForm):
 	Username = StringField('Username', validators=[Length(min=6)])
 	NewPass = PasswordField('New Password', validators=[Length(min=8, max=64)])
 	ConfirmPass = PasswordField('Confirm Password', validators=[EqualTo('NewPass')])
-	Email = StringField('E-mail', validators=[Email()])
+	EMAIL = StringField('E-mail', validators=[Email()])
 	picture = FileField('Update Profile Picture', validators=[FileAllowed(['jpg', 'png', 'gif', 'jpeg'])])
 	Save = SubmitField('Save Changes')
 	def validate_Email(self,Email):

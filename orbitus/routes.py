@@ -122,7 +122,7 @@ def save_picture(form_picture):
 @Orbitus.route('/myaccount', methods=['GET', 'POST'])
 @login_required
 def myaccount():
-	account = MyAccount()
+	form = MyAccount()
 	if  form.validate_on_submit():
 		if form.picture.data:
 			picture_file = save_picture(form.picture.data)
@@ -138,7 +138,7 @@ def myaccount():
 		form.EMAIL.data = current_user.EMAIL
 		form.FullName.data = current_user.FullName
 	profile_pic = url_for('static', filename='profile_pics/' + current_user.profile_pic)
-	return render_template('myaccount.html', title='Account', form=account, profile_pic=profile_pic)
+	return render_template('myaccount.html', title='Account', form=form, profile_pic=profile_pic)
 
 @Orbitus.route('/hostanevent', methods = ['GET', 'POST'])
 @login_required

@@ -127,16 +127,16 @@
 						<form method="POST" action="" autocomplete="off">
 							<input type="text" name="hidden" autocomplete="off" style="display: none">
 							{{form.hidden_tag()}}
-								{{form.Email.label(class="form-control-label")}}
-								 {% if form.Email.errors %}
-             					   {{ form.Email(class="form-control form-control-lg is-invalid") }}
+								{{form.EMAIL.label(class="form-control-label")}}
+								 {% if form.EMAIL.errors %}
+             					   {{ form.EMAIL(class="form-control form-control-lg is-invalid") }}
             						<div class="invalid-feedback">
-                        			{% for error in form.Email.errors %}
+                        			{% for error in form.EMAIL.errors %}
                             			<span>{{ error }}</span>
                     				{% endfor %}
             			        	</div>
 			                    {% else %}
-									{{form.Email(class="form-control form-control-lg")}}
+									{{form.EMAIL(class="form-control form-control-lg")}}
 								{% endif %}
 						</form>
 					</div>
