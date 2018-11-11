@@ -38,8 +38,17 @@
 				<div class="row">
 					<div>
 						<div style="top: 0px; left: 0px; height: 25vw; width: 30%; max-height: 165px">
-							<img src="{{url_for('static', filename='profile_pics/default_pic.png')}}" height="100%" style="border: solid black">
+							<img src="{{profile_pic}}" height="100%" style="border: solid black">
 						</div><br>
+						<!--div class="form-group">
+							{{form.picture.label()}}
+							{{form.picture(class="form-control-file")}}
+							{%if form.picture.errors%}
+								{%for error in form.picture.errors%}
+									<span>{{error}}</span><br>
+								{%endfor%}
+							{%endif%}
+						</div-->
 						<div>
 							<button style="max-width: 165px; width: 25vw">
 								Change
@@ -47,8 +56,7 @@
 						</div>
 					</div>
 					<div style="width: 40vw; min-width: 200px; max-width: 400px; margin-left: 2vw; ">
-						<form method="POST" action="" autocomplete="off">
-							<input type="text" name="hidden" autocomplete="off" style="display: none">
+						<form method="POST" action="" enctype="multipart/form-data">
 							{{form.hidden_tag()}}
 								{{form.FullName.label(class="form-control-label")}}
 								 {% if form.FullName.errors %}
@@ -82,8 +90,7 @@
 					<div style="width: 25vw; max-width: 165px;">
 					</div>
 					<div style="width: 40vw; min-width: 200px; max-width: 400px; margin-left: 2vw;">
-						<form method="POST" action="" autocomplete="off">
-							<input type="text" name="hidden" autocomplete="off" style="display: none">
+						<form method="POST" action="">
 							{{form.hidden_tag()}}
 								{{form.NewPass.label(class="form-control-label")}}
 								 {% if form.NewPass.errors %}
@@ -103,8 +110,7 @@
 					<div style="width: 25vw; max-width: 165px;">
 					</div>
 					<div style="width: 40vw; min-width: 200px; max-width: 400px; margin-left: 2vw;">
-						<form method="POST" action="" autocomplete="off">
-							<input type="text" name="hidden" autocomplete="off" style="display: none">
+						<form method="POST" action="">
 							{{form.hidden_tag()}}
 								{{form.ConfirmPass.label(class="form-control-label")}}
 								 {% if form.ConfirmPass.errors %}
@@ -124,8 +130,7 @@
 					<div style="width: 25vw; max-width: 165px;">
 					</div>
 					<div style="width: 40vw; min-width: 200px; max-width: 400px; margin-left: 2vw;">
-						<form method="POST" action="" autocomplete="off">
-							<input type="text" name="hidden" autocomplete="off" style="display: none">
+						<form method="POST" action="">
 							{{form.hidden_tag()}}
 								{{form.EMAIL.label(class="form-control-label")}}
 								 {% if form.EMAIL.errors %}
