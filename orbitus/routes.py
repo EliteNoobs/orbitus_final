@@ -1,13 +1,15 @@
+import secrets
+import os
 from flask import render_template, flash, redirect, url_for, request
-from orbitus.models import GroupModel, User, Events
-from orbitus.forms import Register, LogIn, Username, GroupForm, MyAccount, EventsForm
+from orbitus.models import GroupModel, Main
+from orbitus.forms import Register, LogIn, Username, GroupForm, MyAccount
 from orbitus import Orbitus, db, crypter
 from flask_login import login_required,login_user, current_user, logout_user, login_required
 
 correctInfo = True #This is used to show the incorrect username or password error while signing in.
 
 #Dummy user
-d_user = User()
+d_user = Main()
 db.create_all()
 
 def FE(name,mail):
@@ -71,23 +73,21 @@ def creategroup():
 		return redirect(url_for('dashboard'))
 	return render_template('creategroup.html', title='Create Group', form=Group)
 
+def JoinGroup(gid):
+	current_user.group_id = gid
 
 @Orbitus.route('/searchgroup', methods=['GET','POST'])
 @login_required
 def searchgroup():
 	search = GroupModel()
 	groups = search.query.all()
-	#group_id = request.args.get('groupid',default=None,type=int)
-	if request.method == "POST":
-		button = request.form
-		for key,value in button.items():
-			current_group = GroupModel.query.filter_by(id=value).first()
-			if len(current_group.users) < 30:
-				current_user.group_id = value
-				db.session.commit()
-			else:
-				return(redirect(url_for('dashboard')))
-	return render_template('searchgroup.html', title='searchgroup', groups=groups)#, current=current_user)
+	return render_template('searchgroup.html', title='searchgroup', groups=groups)
+
+@Orbitus.route('/join/<int:group_id>', methods=['GET,POST'])
+@login_required
+def join(group_id):
+	current_user.group_id = group_id
+	return redirect(url_for('dashboard'))
 
 
 @Orbitus.route('/signin', methods=['GET', 'POST'])
@@ -96,7 +96,7 @@ def signin():
         return redirect(url_for('dashboard'))
     form = LogIn()
     if form.validate_on_submit():
-        user = User.query.filter_by(Username=form.Username.data).first()
+        user = Main.query.filter_by(Username=form.Username.data).first()
         global correctInfo
         if user and crypter.check_password_hash(user.Password, form.Password.data):
             correctInfo = True
@@ -108,24 +108,36 @@ def signin():
             flash('Signin Unsuccessful. Please check Username and password', 'danger')
     return render_template('signin.html', title='Signin', form=form, value=correctInfo) #This variable will be used in HTML to see if user has entered correct details or not
  
+
+def save_picture(form_picture):
+	random_hex = secrets.token_hex(8)
+	_, f_ext = os.path.splitext(form_picture.filename)
+	picture_fn = random_hex + f_ext
+	picture_path = os.path.join(app.root_path, 'static/profile_pics', picture_fn)
+	form_picture.save(picture_path)
+	return picture_fn
+
+
 @Orbitus.route('/myaccount')
 @login_required
 def myaccount():
-	account = MyAccount()
-	return render_template('myaccount.html', title='Account', form=account)
-
-@Orbitus.route('/hostanevent', methods = ['GET', 'POST'])
-@login_required
-def hostanevent():
-	form = EventsForm()
-	if form.validate_on_submit():
-		event = Events(EventName=form.EventName.data, Description=form.Description.data)
-		db.session.add(event)
+	form = MyAccount()
+	if  form.validate_on_submit():
+		if form.picture.data:
+			picture_file = save_picture(form.picture.data)
+			current_user.profile_pic = picture_file
+		current_user.Username = form.Username.data
+		current_user.EMAIL = form.EMAIL.data
+		current_user.FullName = form.FullName.data
 		db.session.commit()
-		flash('Your Event has been created!', 'success')	
-		return redirect(url_for('dashboard'))
-	return render_template('hostanevent.html', title='Event', form=form)
-
+		flash('Your Account has been updates!')
+		return redirect(url_for('myaccount'))
+	elif request.method == 'GET':
+		form.Username.data = current_user.Username
+		form.EMAIL.data = current_user.EMAIL
+		form.FullName.data = current_user.FullName
+	profile_pic = url_for('static', filename='profile_pics/' + current_user.profile_pic)
+	return render_template('myaccount.html', title='Account', form=form, profile_pic=profile_pic)
 
 @Orbitus.route('/signout')
 def signout():
