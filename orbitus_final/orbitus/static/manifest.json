@@ -1,0 +1,17 @@
+{
+    "name": "Orbitus - The Fitness Community",
+    "short_name" : "Orbitus",
+    "start_url": "/",
+    "scope" : "./",
+    "icons": [
+        {
+            "src": "https://technovations.000webhostapp.com/images/Logo196x196.png",
+            "sizes": "196x196",
+            "type": "image/png"
+        }
+    ],
+    "theme_color": "#1E0731",
+    "background_color": "#fff",
+    "display": "standalone",
+    "orientation": "portrait"
+}

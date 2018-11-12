@@ -1,0 +1,166 @@
+{% extends 'layout.html' %}
+	{% block title %}
+		<title>Orbitus &bull; My Account</title>
+	{% endblock title %}
+	{% block navbar %}
+	<div class="header animated fadeIn">
+		My Account
+		<div id="toggleIcon" onclick="toggle(this)">
+			<div class="bar1"></div>
+ 			<div class="bar2"></div>
+  			<div class="bar3"></div>
+		</div>
+		
+		<nav id="menu" style="right: -200px;">
+			<ul>
+				<li id="l1" class="hvr-underline-from-left"><a href="dashboard"><i class="fa fa-home hvr-grow" aria-hidden="true"></i>   Dashboard</a></li>
+				<li id="l2" class="hvr-underline-from-center"><a href="aboutus"><i class="fa fa-info-circle hvr-bob" aria-hidden="true"></i>   About</a></li><br>
+				<li id="l3" class="hvr-underline-reveal"><a href="javascript:history.back()"><i class="fa fa-chevron-left hvr-grow-rotate" aria-hidden="true"></i>   Back</a></li>
+			</ul>
+		</nav>
+	</div>
+	{% endblock navbar %}
+	{% block content %}
+	<div class="rect animated slideInUp">
+		<div class="rect2">
+			<div class="animated slideInLeft delay-0.5s" style="height: 70vh;
+																width: 85%;
+																top: 6vh;
+																left: 6vw;
+																transform-origin: center;
+																position: absolute;
+																background-color: rgba(0, 0, 0, 0.0);
+																border-width: thin;
+																border-style: none;
+																border-color: #1E0731;
+																text-align: left;
+																color: #9966CC;">
+				<div class="row">
+					<div>
+						<div style="top: 0px; left: 0px; height: 25vw; width: 30%; max-height: 165px">
+							<img src="{{profile_pic}}" height="100%" style="border: solid black">
+						</div><br>
+						<!--div class="form-group">
+							{{form.picture.label()}}
+							{{form.picture(class="form-control-file")}}
+							{%if form.picture.errors%}
+								{%for error in form.picture.errors%}
+									<span>{{error}}</span><br>
+								{%endfor%}
+							{%endif%}
+						</div-->
+						<div>
+							<button style="max-width: 165px; width: 25vw">
+								Change
+							</button>
+						</div>
+					</div>
+					<div style="width: 40vw; min-width: 200px; max-width: 400px; margin-left: 2vw; ">
+						<form method="POST" action="" enctype="multipart/form-data">
+							{{form.hidden_tag()}}
+								{{form.FullName.label(class="form-control-label")}}
+								 {% if form.FullName.errors %}
+             					   {{ form.FullName(class="form-control form-control-lg is-invalid") }}
+            						<div class="invalid-feedback">
+                        			{% for error in form.FullName.errors %}
+                            			<span>{{ error }}</span>
+                    				{% endfor %}
+            			        	</div>
+			                    {% else %}
+									{{form.FullName(class="form-control form-control-lg")}}
+								{% endif %}
+								<br>
+							{{form.hidden_tag()}}
+								{{form.Username.label(class="form-control-label")}}
+								 {% if form.Username.errors %}
+             					   {{ form.Username(class="form-control form-control-lg is-invalid") }}
+            						<div class="invalid-feedback">
+                        			{% for error in form.Username.errors %}
+                            			<span>{{ error }}</span>
+                    				{% endfor %}
+            			        	</div>
+			                    {% else %}
+									{{form.Username(class="form-control form-control-lg")}}
+								{% endif %}
+								<br>
+						</form>
+					</div>
+				</div>
+				<div class="row">
+					<div style="width: 25vw; max-width: 165px;">
+					</div>
+					<div style="width: 40vw; min-width: 200px; max-width: 400px; margin-left: 2vw;">
+						<form method="POST" action="">
+							{{form.hidden_tag()}}
+								{{form.NewPass.label(class="form-control-label")}}
+								 {% if form.NewPass.errors %}
+             					   {{ form.NewPass(class="form-control form-control-lg is-invalid") }}
+            						<div class="invalid-feedback">
+                        			{% for error in form.NewPass.errors %}
+                            			<span>{{ error }}</span>
+                    				{% endfor %}
+            			        	</div>
+			                    {% else %}
+									{{form.NewPass(class="form-control form-control-lg")}}
+								{% endif %}
+						</form>
+					</div>
+				</div><br>
+				<div class="row">
+					<div style="width: 25vw; max-width: 165px;">
+					</div>
+					<div style="width: 40vw; min-width: 200px; max-width: 400px; margin-left: 2vw;">
+						<form method="POST" action="">
+							{{form.hidden_tag()}}
+								{{form.ConfirmPass.label(class="form-control-label")}}
+								 {% if form.ConfirmPass.errors %}
+             					   {{ form.ConfirmPass(class="form-control form-control-lg is-invalid") }}
+            						<div class="invalid-feedback">
+                        			{% for error in form.ConfirmPass.errors %}
+                            			<span>{{ error }}</span>
+                    				{% endfor %}
+            			        	</div>
+			                    {% else %}
+									{{form.ConfirmPass(class="form-control form-control-lg")}}
+								{% endif %}
+						</form>
+					</div>
+				</div><br>
+				<div class="row">
+					<div style="width: 25vw; max-width: 165px;">
+					</div>
+					<div style="width: 40vw; min-width: 200px; max-width: 400px; margin-left: 2vw;">
+						<form method="POST" action="">
+							{{form.hidden_tag()}}
+								{{form.EMAIL.label(class="form-control-label")}}
+								 {% if form.EMAIL.errors %}
+             					   {{ form.EMAIL(class="form-control form-control-lg is-invalid") }}
+            						<div class="invalid-feedback">
+                        			{% for error in form.EMAIL.errors %}
+                            			<span>{{ error }}</span>
+                    				{% endfor %}
+            			        	</div>
+			                    {% else %}
+									{{form.EMAIL(class="form-control form-control-lg")}}
+								{% endif %}
+						</form>
+					</div>
+				</div><br>
+				<div class="row">
+					<div style="width: 10vw; max-width: 165px;">
+					</div>
+					<div>
+						<div class="form-group">
+							<form method="POST" action="">
+							{{form.Save(class="btn btn-outline-info", style="max-width: 250px; margin-left: 2vw; background-color: rgba(38, 255, 100, 0.3);")}}
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	{% endblock content %}
+	{% block footer %}
+	&copy; Copyright 2018 Orbitus Pvt. Ltd.
+	{% endblock footer %}
