@@ -60,20 +60,33 @@
 										{% endif %}
 									</div>
 								</div>
-							</center>
+								</center>
 								<div class="form-group">
                                    {{ form.Time.label(class="form-control-label") }}
                                    {% if form.Time.errors %}
-                        {{ form.Time(class="form-control form-control-lg is-invalid") }}
-                        <div class="invalid-feedback">
-                            {% for error in form.Time.errors %}
-                                <span>{{ error }}</span>
-                            {% endfor %}
-                        </div>
-                    {% else %}
-                        {{ form.Time(class="form-control form-control-lg") }}
-                    {% endif %}
-</div>
+                        				{{ form.Time(class="form-control form-control-lg is-invalid") }}
+	                        			<div class="invalid-feedback">
+				                            {% for error in form.Time.errors %}
+				                                <span>{{ error }}</span>
+				                            {% endfor %}
+				                        </div>
+				                    {% else %}
+				                        {{ form.Time(class="form-control form-control-lg") }}
+				                    {% endif %}
+								</div>
+								<!--<div class="form-group">
+                                   {{ form.Date.label(class="form-control-label") }}
+                                   {% if form.Date.errors %}
+                        				{{ form.Date(class="form-control form-control-lg is-invalid") }}
+	                        			<div class="invalid-feedback">
+				                            {% for error in form.Date.errors %}
+				                                <span>{{ error }}</span>
+				                            {% endfor %}
+				                        </div>
+				                    {% else %}
+				                        {{ form.Date(class="form-control form-control-lg") }}
+				                    {% endif %}
+								</div>-->
 								<br>
 								<div class="form-event">
 									{{ form.Invite(class="btn btn-outline-info", style="max-width: 500px") }}

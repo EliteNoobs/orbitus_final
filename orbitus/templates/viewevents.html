@@ -24,6 +24,13 @@
 	</div>
 	{% endblock navbar %}
 	{% block content %}
+	<!--What all information I want displayed:-
+		EventName
+		Description
+		time
+		with proper variable names. Use event.EventName for the same. More variables may be added. Please make good front end.
+	-->
+	<!--This all is made by Arjun. I dont know whether it is required or not(front-end) cuz of classes of html but the form.something written in it is utter bullshit-->
 	<div class="rect animated slideInUp">
 		{% for form in events %}
 		<div class="row eventdisplay">
@@ -37,8 +44,10 @@
 							<div class="gtime">
 								{{form.Time}}
 							</div>
-							{% endfor %}
-							<div class=""></div>
+		</div>
+		{% endfor %}
+	<!--Arjun's blunders till here-->
+	</div>
 							
 	{% endblock content %}
 	{% block footer %}
