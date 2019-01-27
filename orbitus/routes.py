@@ -1,7 +1,7 @@
 import secrets
 import os
 from flask import render_template, flash, redirect, url_for, request
-from orbitus.models import GroupModel, User, Events
+from orbitus.models import GroupModel, User, EventModel
 from orbitus.forms import Register, LogIn, Username, GroupForm, MyAccount, EventsForm
 from orbitus import Orbitus, db, crypter
 from flask_login import login_required,login_user, current_user, logout_user, login_required
@@ -79,7 +79,7 @@ def creategroup():
 def searchgroup():
 	search = GroupModel()
 	groups = search.query.all()
-	#group_id = request.args.get('groupid',default=None,type=int)
+	group_id = request.args.get('groupid',default=None,type=int)
 	if request.method == "POST":
 		button = request.form
 		for key,value in button.items():
@@ -90,6 +90,23 @@ def searchgroup():
 			else:
 				return(redirect(url_for('dashboard')))
 	return render_template('searchgroup.html', title='searchgroup', groups=groups)#, current=current_user)
+
+@Orbitus.route('/viewevents', methods=['GET','POST'])
+@login_required
+def viewevents():
+	search = EventModel()
+	events = search.query.all()
+	event_id = request.args.get('eventid',default=None,type=int)
+	if request.method == "POST":
+		button = request.form
+		for key,value in button.items():
+			current_event = EventModel.query.filter_by(id=value).first()
+			if len(current_event.users) < 30:
+				current_user.event_id = value
+				db.session.commit()
+			else:
+				return(redirect(url_for('dashboard')))	
+	return render_template('viewevents.html', title='viewevents', events=events)		
 
 
 @Orbitus.route('/signin', methods=['GET', 'POST'])
@@ -151,11 +168,15 @@ def myaccount():
 def hostanevent():
 	form = EventsForm()
 	if form.validate_on_submit():
-		event = Events(EventName=form.EventName.data, Description=form.Description.data)
-		db.session.add(event)
-		db.session.commit()
-		flash('Your Event has been created!', 'success')	
-		return redirect(url_for('dashboard'))
+	      event = EventModel(EventName=form.EventName.data, Description=form.Description.data)
+	      event_m = EventModel()
+	      event_m.EventName = form.EventName.data
+	      event_m.time = form.Time.data
+	      event_m.Description = form.Description.data
+	      event_m.Date = form.Date.data  
+	      db.session.add(event_m)
+	      db.session.commit()     
+	      return redirect(url_for('dashboard'))
 	return render_template('hostanevent.html', title='Event', form=form)
 
 @Orbitus.route('/viewevents', methods=['GET','POST'])
