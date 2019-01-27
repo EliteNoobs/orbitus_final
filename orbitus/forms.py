@@ -1,11 +1,9 @@
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileAllowed
 from flask_login import current_user
-from wtforms import StringField, PasswordField, SubmitField, BooleanField, IntegerField, TextAreaField, DateTimeField
+from wtforms import StringField, PasswordField, SubmitField, BooleanField, IntegerField, TextAreaField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
-from orbitus.models import User, EventModel
-from datetime import datetime
-
+from orbitus.models import User, Events
 
 class Register(FlaskForm):
 	FullName = StringField('Full Name', validators=[DataRequired()])
@@ -36,7 +34,7 @@ class LogIn(FlaskForm):
 	
 class GroupForm(FlaskForm):
 	GroupName = StringField('Name', validators=[DataRequired(), Length(min=8)])
-	Description = TextAreaField('Description', validators=[DataRequired(), Length(min=0)])
+	Description = TextAreaField('Description', validators=[DataRequired(), Length(min=20)])
 	creategroupbtn = SubmitField('Create your Group')
 	def validate_Group(self,GroupName):
 		current = GroupModel.query.filter_by(groupname=GroupName.data).first()
@@ -65,6 +63,4 @@ class MyAccount(FlaskForm):
 class EventsForm(FlaskForm):
 	EventName = StringField('Event Name', validators=[Length(min=8, max=64)])
 	Description = TextAreaField('Description', validators=[DataRequired()])
-	Date = DateTimeField('Event Date', format="%d/%m/%y")
-	Time = DateTimeField('Event Time', format="%H:%M")
 	Invite = SubmitField('Create Event')

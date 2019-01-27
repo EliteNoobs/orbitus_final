@@ -3,7 +3,6 @@ from orbitus import db, login_manager
 from flask_login import UserMixin
 
 
-
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(user_id)
@@ -31,18 +30,17 @@ class User(db.Model, UserMixin):
 	Password = db.Column(db.String(64), nullable=False)
 	#group = db.relationship('GroupModel', backref='member', lazy=True)
 	group_id = db.Column(db.Integer,db.ForeignKey('GroupModel.id'), nullable=True)
-	event_id = db.Column(db.Integer,db.ForeignKey('EventModel.id'), nullable=True)
+	event_id = db.Column(db.Integer,db.ForeignKey('Events.id'))
 	def __repr__(self):
 		return f"('{self.id}','{self.FullName}', '{self.EMAIL}', '{self.Username}','{self.profile_pic}','{self.Password}','{self.group_id}', {self.event_id})"
 
 
-class EventModel(db.Model):
-	__tablename__ = 'EventModel'
+class Events(db.Model):
+	__tablename__ = 'Events'
 	id = db.Column(db.Integer, primary_key=True)
 	EventName = db.Column(db.String(64), nullable=False)
 	Description = db.Column(db.String, nullable=False)
-	time = db.Column(db.DateTime, nullable=False)
-#	Date = db.Column(db.DateTime, nullable=False)
+	time = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
 	users = db.relationship('User', backref='author',lazy=True)
 
 	def __repr__(self):

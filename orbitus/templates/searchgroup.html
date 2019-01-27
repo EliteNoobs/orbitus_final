@@ -37,7 +37,7 @@
 							text-align: left;
 							color: #FFF;">
 					{% for group in groups %}
-						<div class="row groupdisplay">
+						<div id="gd" class="row groupdisplay">
 							<div class="gid">
 								{{group.id}}
 							</div>
@@ -49,11 +49,11 @@
 								{{group.Description}}
 							</div>
 							<div class=""></div>
-							<div class="">
+							<div class="" onmouseover="mouseStatus(true);">
 								<form method="POST">
-										<button type="submit" value="{{group.id}}" name="Join">
-											Join
-										</button>
+									<button type="submit" value="{{group.id}}" name="Join" >
+										Join
+									</button>
 								</form>
 							</div>
 						</div><br>
@@ -63,6 +63,18 @@
 
 		</div>
 	</div>
+	<script type="text/javascript">
+		var mouse = false;
+		var gd = document.getElementById("gd");
+		function mouseStatus(n)
+		{
+			mouse = n;
+		}
+		if (mouse == true)
+		{
+		}
+
+	</script>
 	{% endblock content %}
 	{% block footer %}
 	&copy; Copyright 2018 Orbitus Pvt. Ltd.
