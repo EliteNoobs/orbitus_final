@@ -158,6 +158,12 @@ def hostanevent():
 		return redirect(url_for('dashboard'))
 	return render_template('hostanevent.html', title='Event', form=form)
 
+@Orbitus.route('/viewevents', methods=['GET','POST'])
+@login_required
+def viewevents():
+	search = Events()
+	events = Events.query.all()
+	return render_template('viewevents.html', title='View Events', events=events)
 
 @Orbitus.route('/signout')
 def signout():
