@@ -1,10 +1,10 @@
 {% extends 'layout.html' %}
 	{% block title %}
-		<title>Orbitus &bull; "Title Here"</title>
+		<title>Orbitus &bull; View Events</title>
 	{% endblock title %}
 	{% block navbar %}
 	<div class="header animated fadeIn">
-		"Insert Title Here"
+		View Events
 		<div id="toggleIcon" onclick="toggle(this)">
 			<div class="bar1"></div>
  			<div class="bar2"></div>
@@ -24,11 +24,31 @@
 	</div>
 	{% endblock navbar %}
 	{% block content %}
+	<!--What all information I want displayed:-
+		EventName
+		Description
+		time
+		with proper variable names. Use event.EventName for the same. More variables may be added. Please make good front end.
+	-->
+	<!--This all is made by Arjun. I dont know whether it is required or not(front-end) cuz of classes of html but the form.something written in it is utter bullshit-->
 	<div class="rect animated slideInUp">
-		<div class="rect2">
-
+		{% for form in events %}
+		<div class="row eventdisplay">
+							<div class="ename">
+								{{form.EventName}}
+							</div>
+							<div class="gdescr">
+								{{form.Description}}
+							</div>
+							<div class=""></div>
+							<div class="gtime">
+								{{form.Time}}
+							</div>
 		</div>
+		{% endfor %}
+	<!--Arjun's blunders till here-->
 	</div>
+							
 	{% endblock content %}
 	{% block footer %}
 	&copy; Copyright 2018 Orbitus Pvt. Ltd.
