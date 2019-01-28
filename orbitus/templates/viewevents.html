@@ -13,12 +13,9 @@
 		
 		<nav id="menu" style="right: -200px;">
 			<ul>
-				<li id="l1" class="hvr-underline-from-left"><a href="#"><i class="fa fa-home hvr-grow" aria-hidden="true"></i>   Home</a></li>
-				<!--li><a href="#"><i class="fa fa-user" aria-hidden="true"></i>
-				Account</a></li-->
-				<li id="l2" class="hvr-underline-from-center"><a href="aboutus"><i class="fa fa-info-circle hvr-bob" aria-hidden="true"></i>   About</a></li>
-				<li id="l3" class="hvr-underline-reveal"><a href="signin"><i class="fa fa-sign-in hvr-wobble-bottom" aria-hidden="true"></i>   Sign In</a></li>
-				<li id="l4" class="hvr-underline-from-right"><a href="signup"><i class="fa fa-user-plus hvr-wobble-bottom" aria-hidden="true"></i>   Sign Up</a></li>
+				<li id="l1" class="hvr-underline-from-left"><a href="dashboard"><i class="fa fa-home hvr-grow" aria-hidden="true"></i>   Dashboard</a></li>
+				<li id="l2" class="hvr-underline-from-center"><a href="aboutus"><i class="fa fa-info-circle hvr-bob" aria-hidden="true"></i>   About</a></li><br>
+				<li id="l3" class="hvr-underline-reveal"><a href="javascript:history.back()"><i class="fa fa-chevron-left hvr-grow-rotate" aria-hidden="true"></i>   Back</a></li>
 			</ul>
 		</nav>
 	</div>
@@ -32,23 +29,68 @@
 	-->
 	<!--This all is made by Arjun. I dont know whether it is required or not(front-end) cuz of classes of html but the form.something written in it is utter bullshit-->
 	<div class="rect animated slideInUp">
-		{% for form in events %}
-		<div class="row eventdisplay">
+		<div class="rect2">
+			<div style="height: 95%;
+						width: calc(60vw);
+						top: 3vh;
+						left: 10vw;
+						transform-origin: center;
+						position: absolute;
+						background-color: rgba(0, 0, 0, 0.0);
+						border-width: thin;
+						border-style: none;
+						border-color: #1E0731;
+						text-align: left;
+						color: #FFF;">
+				{% for event in events %}
+					<div class="eventdisplay">
+						<div class="row">
+							<div class="eventinfo" onclick="toggleExpand(this)">
+								<div class="row">
+									<div class="eid col-lg-1">
+										{{event.id}}.
+									</div>
+									<div class="ename col-lg-6">
+										{{event.EventName}}
+									</div>
+									<div class="edesc col-lg-5">
+										{{event.Description}}
+									</div>
+								</div>
+								<div class="row">
+									<div class="edatetime">
+										{{event.time}}
+									</div>
+								</div>
+							</div>
+							<div class="eventjoin">
+								Join
+							</div>
+						</div>
+						<!--div class="row">
+							<div class="eid">
+								{{event.id}}
+							</div>
 							<div class="ename">
-								{{form.EventName}}
+								{{event.EventName}}
 							</div>
-							<div class="gdescr">
-								{{form.Description}}
+							<div class="edatetime">
+									{{event.time}}
 							</div>
-							<div class=""></div>
-							<div class="gtime">
-								{{form.Time}}
+							<div class="">
+								<form method="POST">
+									<button type="submit" name="Join"--> <!-- For ashu, add the backend code here for joining. Delete this after addin-->
+										<!--Join-->
+									<!--/button>
+								</form>
 							</div>
+						</div-->
+					</div>
+					<br>
+				{% endfor %}
+			</div>		
 		</div>
-		{% endfor %}
-	<!--Arjun's blunders till here-->
-	</div>
-							
+	</div>			
 	{% endblock content %}
 	{% block footer %}
 	&copy; Copyright 2018 Orbitus Pvt. Ltd.
