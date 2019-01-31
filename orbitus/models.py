@@ -31,17 +31,19 @@ class User(db.Model, UserMixin):
 	Password = db.Column(db.String(64), nullable=False)
 	#group = db.relationship('GroupModel', backref='member', lazy=True)
 	group_id = db.Column(db.Integer,db.ForeignKey('GroupModel.id'), nullable=True)
-	event_id = db.Column(db.Integer,db.ForeignKey('Events.id'), nullable=True)
+	event_id = db.Column(db.Integer,db.ForeignKey('EventModel.id'), nullable=True)
 	def __repr__(self):
 		return f"('{self.id}','{self.FullName}', '{self.EMAIL}', '{self.Username}','{self.profile_pic}','{self.Password}','{self.group_id}', {self.event_id})"
 
 
 class EventModel(db.Model):
-	__tablename__ = 'Events'
+	__tablename__ = 'EventModel'
 	id = db.Column(db.Integer, primary_key=True)
 	EventName = db.Column(db.String(64), nullable=False)
 	Description = db.Column(db.String, nullable=False)
-	time = db.Column(db.DateTime, nullable=False)
+	Date = db.Column(db.DateTime, nullable=False)
+	startTime = db.Column(db.DateTime, nullable=False)
+	endTime = db.Column(db.DateTime, nullable=False)
 	users = db.relationship('User', backref='author',lazy=True)
 
 	def __repr__(self):

@@ -3,7 +3,7 @@ from flask_wtf.file import FileField, FileAllowed
 from flask_login import current_user
 from wtforms import StringField, PasswordField, SubmitField, BooleanField, IntegerField, TextAreaField, DateTimeField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
-from orbitus.models import User, Events
+from orbitus.models import User, EventModel
 from datetime import datetime
 
 
@@ -65,5 +65,8 @@ class MyAccount(FlaskForm):
 class EventsForm(FlaskForm):
 	EventName = StringField('Event Name', validators=[Length(min=8, max=64)])
 	Description = TextAreaField('Description', validators=[DataRequired()])
-	Time = DateTimeField('Event Time', format = "%H:%M")
+	Date = DateTimeField('Event Date', format="%d/%m/%y")
+	StartTime = DateTimeField('Event Start Time', format="%H:%M")
+	EndTime = DateTimeField('Event End Time', format="%H:%M")
 	Invite = SubmitField('Create Event')
+	#def validate_Date(self)
