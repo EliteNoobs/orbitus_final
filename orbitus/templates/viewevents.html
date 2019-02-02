@@ -47,23 +47,38 @@
 						<div class="row">
 							<div class="eventinfo" onclick="toggleExpand(this)">
 								<div class="row">
-									<div class="eid col-lg-1">
+									<div class="eid" style="width: 8.33%">
 										{{event.id}}.
 									</div>
-									<div class="ename col-lg-6">
-										{{event.EventName}}
+									<div class="ename" style="width: 33.33%">
+										<font color="#ccc">Name:</font> {{event.EventName}}
 									</div>
-									<div class="edesc col-lg-5">
-										{{event.Description}}
+									<div class="edatetime" style="width: 50%">
+										<font color="#ccc">Start Time: </font>{{event.startTime.time()}}
 									</div>
 								</div>
 								<div class="row">
-									<div class="edatetime">
-										{{event.time}}
+									<div style="width: 8.33%"></div>
+									<div style="width: 33.33%"></div>
+									<div class="edatetime" style="width: 50%">
+										<font color="#ccc">End Time: </font>{{event.endTime.time()}}
+									</div>
+								</div>
+								<div class="row">
+									<div style="width: 8.33%"></div>
+									<div style="width: 33.33%"></div>
+									<div class="edatetime" style="width: 50%">
+										<font color="#ccc">Date: </font>{{event.endTime.date()}}
+									</div>
+								</div>
+								<div class="row">
+									<div style="width: 8.33%"></div>
+									<div class="edesc hideToggle" style="width: 91.67%">
+										{{event.Description}}
 									</div>
 								</div>
 							</div>
-							<div class="eventjoin">
+							<div class="eventjoin"> <!-- ashu add join functionality -->
 								Join
 							</div>
 						</div>
