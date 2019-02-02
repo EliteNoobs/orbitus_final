@@ -26,7 +26,7 @@
 			<div class="rect3" style="top: 20px; height: 90%"> 
 				<div style="height: 43vh;
 							width: calc(60vw);
-							top: 6vh;
+							top: 2vh;
 							left: calc(10vw - 20px);
 							transform-origin: center;
 							position: absolute;
@@ -54,7 +54,6 @@
 										{% endif %}
 									</div>
 								</div>
-								<center>
 								<div class="row">
 									<div class="col-md-12 col-lg-12 col-xs-12" style="max-width: 500px">
 										{{form.Description.label(class="form-control-label")}}
@@ -66,11 +65,10 @@
 				            				{% endfor %}
 				    			        	</div>
 					                    {% else %}
-											{{form.Description(class="form-control form-control-lg", cols="30", rows="5", style="border-color: rgb(0, 0, 0); transition: 200ms ease-in-out")}}
+											{{form.Description(class="form-control form-control-lg", cols="30", rows="2", style="border-color: rgb(0, 0, 0); transition: 200ms ease-in-out")}}
 										{% endif %}
 									</div>
 								</div>
-								</center>
 								<div class="form-group">
                                    {{ form.Date.label(class="form-control-label") }}
                                    {% if form.Date.errors %}
@@ -81,7 +79,7 @@
 				                            {% endfor %}
 				                        </div>
 				                    {% else %}
-				                        {{ form.Date(class="form-control form-control-lg") }}
+				                        {{ form.Date(class="form-control form-control-lg", style="max-width: 500px") }}
 				                    {% endif %}
 								</div>
 								<div class="form-group">
@@ -94,7 +92,7 @@
 				                            {% endfor %}
 				                        </div>
 				                    {% else %}
-				                        {{ form.StartTime(class="form-control form-control-lg") }}
+				                        {{ form.StartTime(class="form-control form-control-lg", style="max-width: 500px") }}
 				                    {% endif %}
 								</div>
 								<div class="form-group">
@@ -107,7 +105,7 @@
 				                            {% endfor %}
 				                        </div>
 				                    {% else %}
-				                        {{ form.EndTime(class="form-control form-control-lg") }}
+				                        {{ form.EndTime(class="form-control form-control-lg", style="max-width: 500px") }}
 				                    {% endif %}
 								</div>
 								<!--<div class="form-group">

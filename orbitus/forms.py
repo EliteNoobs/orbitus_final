@@ -66,5 +66,7 @@ class EventsForm(FlaskForm):
 	EventName = StringField('Event Name', validators=[Length(min=8, max=64)])
 	Description = TextAreaField('Description', validators=[DataRequired()])
 	Date = DateTimeField('Event Date', format="%d/%m/%y")
-	Time = DateTimeField('Event Time', format="%H:%M")
+	StartTime = DateTimeField('Event Start Time', format="%H:%M")
+	EndTime = DateTimeField('Event End Time', format="%H:%M")
 	Invite = SubmitField('Create Event')
+	#def validate_Date(self)

@@ -41,8 +41,9 @@ class EventModel(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
 	EventName = db.Column(db.String(64), nullable=False)
 	Description = db.Column(db.String, nullable=False)
-	time = db.Column(db.DateTime, nullable=False)
-#	Date = db.Column(db.DateTime, nullable=False)
+	Date = db.Column(db.DateTime, nullable=False)
+	startTime = db.Column(db.DateTime, nullable=False)
+	endTime = db.Column(db.DateTime, nullable=False)
 	users = db.relationship('User', backref='author',lazy=True)
 
 	def __repr__(self):
