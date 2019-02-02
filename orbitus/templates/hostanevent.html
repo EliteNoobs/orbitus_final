@@ -13,17 +13,17 @@
 		
 		<nav id="menu" style="right: -200px;">
 			<ul>
-				<li id="l1" class="hvr-underline-from-left"><a href="dashboard"><i class="fa fa-home hvr-grow" aria-hidden="true"></i>   Dashboard</a></li><!--Added/Changed by (c) Kushagra-->
-				<li id="l2" class="hvr-underline-from-center"><a href="aboutus"><i class="fa fa-info-circle hvr-bob" aria-hidden="true"></i>   About</a></li><br><!--Added/Changed by (c) Kushagra-->
-				<li id="l3" class="hvr-underline-reveal"><a href="javascript:history.back()"><i class="fa fa-chevron-left hvr-grow-rotate" aria-hidden="true"></i>   Back</a></li><!--Added/Changed by (c) Kushagra-->
+				<li id="l1" class="hvr-underline-from-left"><a href="dashboard"><i class="fa fa-home hvr-grow" aria-hidden="true"></i>   Dashboard</a></li>
+				<li id="l2" class="hvr-underline-from-center"><a href="aboutus"><i class="fa fa-info-circle hvr-bob" aria-hidden="true"></i>   About</a></li><br>
+				<li id="l3" class="hvr-underline-reveal"><a href="javascript:history.back()"><i class="fa fa-chevron-left hvr-grow-rotate" aria-hidden="true"></i>   Back</a></li>
 			</ul>
 		</nav>
 	</div>
 	{% endblock navbar %}
 	{% block content %}
 	<div class="rect animated slideInUp">
-		<div class="rect2"> <!--Added/Changed by (c) Kushagra-->
-			<div class="rect3" style="top: 20px; height: 90%"> <!--Added/Changed by (c) Kushagra-->
+		<div class="rect2">
+			<div class="rect3" style="top: 20px; height: 90%"> 
 				<div style="height: 43vh;
 							width: calc(60vw);
 							top: 6vh;
@@ -54,9 +54,9 @@
 										{% endif %}
 									</div>
 								</div>
-								<br>
+								<center>
 								<div class="row">
-									<div class="col-md-12 col-lg-12 col-xs-12" style="max-width: 500px;">
+									<div class="col-md-12 col-lg-12 col-xs-12" style="max-width: 500px">
 										{{form.Description.label(class="form-control-label")}}
 										{% if form.Description.errors %}
 				     					   {{ form.Description(class="form-control form-control-lg is-invalid") }}
@@ -70,25 +70,51 @@
 										{% endif %}
 									</div>
 								</div>
-								<br>
+								</center>
 								<div class="form-group">
-				                   {{ form.Time.label(class="form-control-label") }}
-				                   {% if form.Time.errors %}
-				        				{{ form.Time(class="form-control form-control-lg is-invalid") }}
-				            			<div class="invalid-feedback">
-				                            {% for error in form.Time.errors %}
+                                   {{ form.Date.label(class="form-control-label") }}
+                                   {% if form.Date.errors %}
+                        				{{ form.Date(class="form-control form-control-lg is-invalid") }}
+	                        			<div class="invalid-feedback">
+				                            {% for error in form.Date.errors %}
 				                                <span>{{ error }}</span>
 				                            {% endfor %}
 				                        </div>
 				                    {% else %}
-				                        {{ form.Time(class="form-control form-control-lg") }}
+				                        {{ form.Date(class="form-control form-control-lg") }}
+				                    {% endif %}
+								</div>
+								<div class="form-group">
+                                   {{ form.StartTime.label(class="form-control-label") }}
+                                   {% if form.StartTime.errors %}
+                        				{{ form.StartTime(class="form-control form-control-lg is-invalid") }}
+	                        			<div class="invalid-feedback">
+				                            {% for error in form.StartTime.errors %}
+				                                <span>{{ error }}</span>
+				                            {% endfor %}
+				                        </div>
+				                    {% else %}
+				                        {{ form.StartTime(class="form-control form-control-lg") }}
+				                    {% endif %}
+								</div>
+								<div class="form-group">
+                                   {{ form.EndTime.label(class="form-control-label") }}
+                                   {% if form.EndTime.errors %}
+                        				{{ form.EndTime(class="form-control form-control-lg is-invalid") }}
+	                        			<div class="invalid-feedback">
+				                            {% for error in form.EndTime.errors %}
+				                                <span>{{ error }}</span>
+				                            {% endfor %}
+				                        </div>
+				                    {% else %}
+				                        {{ form.EndTime(class="form-control form-control-lg") }}
 				                    {% endif %}
 								</div>
 								<!--<div class="form-group">
-				                   {{ form.Date.label(class="form-control-label") }}
-				                   {% if form.Date.errors %}
-				        				{{ form.Date(class="form-control form-control-lg is-invalid") }}
-				            			<div class="invalid-feedback">
+                                   {{ form.Date.label(class="form-control-label") }}
+                                   {% if form.Date.errors %}
+                        				{{ form.Date(class="form-control form-control-lg is-invalid") }}
+	                        			<div class="invalid-feedback">
 				                            {% for error in form.Date.errors %}
 				                                <span>{{ error }}</span>
 				                            {% endfor %}
