@@ -171,7 +171,8 @@ def hostanevent():
 	      event = EventModel(EventName=form.EventName.data, Description=form.Description.data)
 	      event_m = EventModel()
 	      event_m.EventName = form.EventName.data
-	      event_m.time = form.Time.data
+	      event_m.startTime = form.StartTime.data
+	      event_m.endTime = form.EndTime.data
 	      event_m.Description = form.Description.data
 	      event_m.Date = form.Date.data  
 	      db.session.add(event_m)
