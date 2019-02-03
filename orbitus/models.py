@@ -47,4 +47,4 @@ class EventModel(db.Model):
 	users = db.relationship('User', backref='author',lazy=True)
 
 	def __repr__(self):
-		return f"('{self.id}', '{self.EventName}', '{self.Description}', '{self.time}')"
+		return f"('{self.id}', '{self.EventName}', '{self.Description}', '{self.startTime}', '{self.endTime}')"
