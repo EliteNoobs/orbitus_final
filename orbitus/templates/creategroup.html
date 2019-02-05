@@ -42,29 +42,17 @@
 							<form method="POST" action="">
 								<div class="row">
 									<div class="form-group col-md-9 col-lg-9 col-xs-9">
-										{{form.Name.label(class="form-control-label")}}
-										{% if form.Name.errors %}
-				     					   {{ form.Name(class="form-control form-control-lg is-invalid") }}
+										{{form.hidden_tag()}}
+										{{form.GroupName.label(class="form-control-label")}}
+										{% if form.GroupName.errors %}
+				     					   {{ form.GroupName(class="form-control form-control-lg is-invalid") }}
 				    						<div class="invalid-feedback">
-				                			{% for error in form.Name.errors %}
+				                			{% for error in form.GroupName.errors %}
 				                    			<span>{{ error }}</span>
 				            				{% endfor %}
 				    			        	</div>
 					                    {% else %}
-											{{form.Name(class="form-control form-control-lg")}}
-										{% endif %}
-									</div>
-									<div class="form-group col-md-3 col-lg-3 col-xs-3">
-										{{form.MaxMembers.label(class="form-control-label")}}
-										{% if form.MaxMembers.errors %}
-				     					   {{ form.MaxMembers(class="form-control form-control-lg is-invalid") }}
-				    						<div class="invalid-feedback">
-				                			{% for error in form.MaxMembers.errors %}
-				                    			<span>{{ error }}</span>
-				            				{% endfor %}
-				    			        	</div>
-					                    {% else %}
-											{{form.MaxMembers(class="form-control form-control-lg")}}
+											{{form.GroupName(class="form-control form-control-lg")}}
 										{% endif %}
 									</div>
 								</div>

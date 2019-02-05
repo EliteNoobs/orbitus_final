@@ -1,0 +1,112 @@
+{% extends 'layout.html' %}
+	{% block title %}
+		<title>Orbitus &bull; View Events</title>
+	{% endblock title %}
+	{% block navbar %}
+	<div class="header animated fadeIn">
+		View Events
+		<div id="toggleIcon" onclick="toggle(this)">
+			<div class="bar1"></div>
+ 			<div class="bar2"></div>
+  			<div class="bar3"></div>
+		</div>
+		
+		<nav id="menu" style="right: -200px;">
+			<ul>
+				<li id="l1" class="hvr-underline-from-left"><a href="dashboard"><i class="fa fa-home hvr-grow" aria-hidden="true"></i>   Dashboard</a></li>
+				<li id="l2" class="hvr-underline-from-center"><a href="aboutus"><i class="fa fa-info-circle hvr-bob" aria-hidden="true"></i>   About</a></li><br>
+				<li id="l3" class="hvr-underline-reveal"><a href="javascript:history.back()"><i class="fa fa-chevron-left hvr-grow-rotate" aria-hidden="true"></i>   Back</a></li>
+			</ul>
+		</nav>
+	</div>
+	{% endblock navbar %}
+	{% block content %}
+	<!--What all information I want displayed:-
+		EventName
+		Description
+		time
+		with proper variable names. Use event.EventName for the same. More variables may be added. Please make good front end.
+	-->
+	<!--This all is made by Arjun. I dont know whether it is required or not(front-end) cuz of classes of html but the form.something written in it is utter bullshit-->
+	<div class="rect animated slideInUp">
+		<div class="rect2">
+			<div style="height: 95%;
+						width: calc(60vw);
+						top: 3vh;
+						left: 10vw;
+						transform-origin: center;
+						position: absolute;
+						background-color: rgba(0, 0, 0, 0.0);
+						border-width: thin;
+						border-style: none;
+						border-color: #1E0731;
+						text-align: left;
+						color: #FFF;">
+				{% for event in events %}
+					<div class="eventdisplay">
+						<div class="row">
+							<div class="eventinfo" onclick="toggleExpand(this)">
+								<div class="row">
+									<div class="eid" style="width: 8.33%">
+										{{event.id}}.
+									</div>
+									<div class="ename" style="width: 33.33%">
+										<font color="#ccc">Name:</font> {{event.EventName}}
+									</div>
+									<div class="edatetime" style="width: 50%">
+										<font color="#ccc">Start Time: </font>{{event.startTime.time()}}
+									</div>
+								</div>
+								<div class="row">
+									<div style="width: 8.33%"></div>
+									<div style="width: 33.33%"></div>
+									<div class="edatetime" style="width: 50%">
+										<font color="#ccc">End Time: </font>{{event.endTime.time()}}
+									</div>
+								</div>
+								<div class="row">
+									<div style="width: 8.33%"></div>
+									<div style="width: 33.33%"></div>
+									<div class="edatetime" style="width: 50%">
+										<font color="#ccc">Date: </font>{{event.endTime.date()}}
+									</div>
+								</div>
+								<div class="row">
+									<div style="width: 8.33%"></div>
+									<div class="edesc hideToggle" style="width: 91.67%">
+										{{event.Description}}
+									</div>
+								</div>
+							</div>
+							<div class="eventjoin"> <!-- ashu add join functionality -->
+								Join
+							</div>
+						</div>
+						<!--div class="row">
+							<div class="eid">
+								{{event.id}}
+							</div>
+							<div class="ename">
+								{{event.EventName}}
+							</div>
+							<div class="edatetime">
+									{{event.time}}
+							</div>
+							<div class="">
+								<form method="POST">
+									<button type="submit" name="Join"--> <!-- For ashu, add the backend code here for joining. Delete this after addin-->
+										<!--Join-->
+									<!--/button>
+								</form>
+							</div>
+						</div-->
+					</div>
+					<br>
+				{% endfor %}
+			</div>		
+		</div>
+	</div>			
+	{% endblock content %}
+	{% block footer %}
+	&copy; Copyright 2018 Orbitus Pvt. Ltd.
+	{% endblock footer %}

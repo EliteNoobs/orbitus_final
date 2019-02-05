@@ -1,13 +1,15 @@
+import secrets
+import os
 from flask import render_template, flash, redirect, url_for, request
-from orbitus.models import Group, Main
-from orbitus.forms import Register, LogIn, Username, PersonalInfo, Group
+from orbitus.models import GroupModel, User, EventModel
+from orbitus.forms import Register, LogIn, Username, GroupForm, MyAccount, EventsForm
 from orbitus import Orbitus, db, crypter
 from flask_login import login_required,login_user, current_user, logout_user, login_required
 
 correctInfo = True #This is used to show the incorrect username or password error while signing in.
 
 #Dummy user
-d_user = Main()
+d_user = User()
 db.create_all()
 
 def FE(name,mail):
@@ -18,16 +20,12 @@ def UP(uname,passwd):
 	d_user.Username = uname
 	d_user.Password = passwd
 
-def A(age):
-	d_user.Age = age
-
 #These will put in the default values
 def clear():
 	d_user.FullName = ''
 	d_user.EMAIL = ''
 	d_user.Username = ''
 	d_user.Password = ''
-	d_user.Age = 10
 
 clear()
 
@@ -36,6 +34,8 @@ clear()
 def index():
         global correctInfo
         correctInfo = True
+        if current_user.is_authenticated:
+        	return redirect(url_for('dashboard'))
         return render_template('index.html')
 
 
@@ -52,7 +52,7 @@ def signup():
 def createuser():
 	User = Username()	#These are the forms
 	if User.validate_on_submit():
-		hashed_pw = crypter.generate_password_hash(User.Password.data).encode('utf-8')
+		hashed_pw = crypter.generate_password_hash(User.Password.data).decode('utf-8')
 		UP(uname=User.Username.data, passwd=hashed_pw)
 		db.session.add(d_user)
 		db.session.commit()
@@ -60,17 +60,54 @@ def createuser():
 		return redirect(url_for('signin'))
 	return render_template('createuser.html', title='createuser', form=User)
 
-@Orbitus.route('/createuser2', methods=['GET','POST'])
-def createuser2():
-	Personal = PersonalInfo()	#These are the forms
-	if Personal.validate_on_submit():
-		#A(age=Personal.Age.data)
-		#db.session.add(d_user)
-		#db.session.commit()	
-		clear()
+@Orbitus.route('/creategroup', methods=['GET', 'POST'])
+@login_required
+def creategroup():
+	Group = GroupForm()
+	if Group.validate_on_submit():
+		group_model = GroupModel()
+		group_model.groupname = Group.GroupName.data
+		group_model.Description = Group.Description.data
+		db.session.add(group_model)
+		db.session.commit()
 		return redirect(url_for('dashboard'))
-	return render_template('createuser2.html', title='createuser2', form=Personal)
-	
+	return render_template('creategroup.html', title='Create Group', form=Group)
+
+
+@Orbitus.route('/searchgroup', methods=['GET','POST'])
+@login_required
+def searchgroup():
+	search = GroupModel()
+	groups = search.query.all()
+	group_id = request.args.get('groupid',default=None,type=int)
+	if request.method == "POST":
+		button = request.form
+		for key,value in button.items():
+			current_group = GroupModel.query.filter_by(id=value).first()
+			if len(current_group.users) < 30:
+				current_user.group_id = value
+				db.session.commit()
+			else:
+				return(redirect(url_for('dashboard')))
+	return render_template('searchgroup.html', title='searchgroup', groups=groups)#, current=current_user)
+
+@Orbitus.route('/viewevents', methods=['GET','POST'])
+@login_required
+def viewevents():
+	search = EventModel()
+	events = search.query.all()
+	event_id = request.args.get('eventid',default=None,type=int)
+	if request.method == "POST":
+		button = request.form
+		for key,value in button.items():
+			current_event = EventModel.query.filter_by(id=value).first()
+			if len(current_event.users) < 30:
+				current_user.event_id = value
+				db.session.commit()
+			else:
+				return(redirect(url_for('dashboard')))	
+	return render_template('viewevents.html', title='viewevents', events=events)		
+
 
 @Orbitus.route('/signin', methods=['GET', 'POST'])
 def signin():
@@ -78,7 +115,7 @@ def signin():
         return redirect(url_for('dashboard'))
     form = LogIn()
     if form.validate_on_submit():
-        user = Main.query.filter_by(Username=form.Username.data).first()
+        user = User.query.filter_by(Username=form.Username.data).first()
         global correctInfo
         if user and crypter.check_password_hash(user.Password, form.Password.data):
             correctInfo = True
@@ -89,11 +126,60 @@ def signin():
             correctInfo = False
             flash('Signin Unsuccessful. Please check Username and password', 'danger')
     return render_template('signin.html', title='Signin', form=form, value=correctInfo) #This variable will be used in HTML to see if user has entered correct details or not
+
+
+def save_picture(form_picture):
+    random_hex = secrets.token_hex(8)
+    _, f_ext = os.path.splitext(form_picture.filename)
+    picture_fn = random_hex + f_ext
+    picture_path = os.path.join(Orbitus.root_path, 'static/profile_pics', picture_fn)
+
+    output_size = (125, 125)
+    i = Image.open(form_picture)
+    i.thumbnail(output_size)
+    i.save(picture_path)
+
+    return picture_fn
  
-@Orbitus.route('/creategroup', methods=['GET', 'POST'])
-def creategroup():
-	group = Group()
-	return render_template('creategroup.html', title='Create Group', form=group)
+@Orbitus.route('/myaccount', methods=['GET', 'POST'])
+@login_required
+def myaccount():
+	form = MyAccount()
+	if  form.validate_on_submit():
+		if form.picture.data:
+			picture_file = save_picture(form.picture.data)
+			current_user.profile_pic = picture_file
+		current_user.Username = form.Username.data
+		current_user.EMAIL = form.EMAIL.data
+		current_user.FullName = form.FullName.data
+		current_user.NewPass = form.NewPass.data
+		current_user.ConfirmPass = form.ConfirmPass.data
+		db.session.commit()
+		return redirect(url_for('myaccount'))
+	elif request.method == 'GET':
+		form.Username.data = current_user.Username
+		form.EMAIL.data = current_user.EMAIL
+		form.FullName.data = current_user.FullName
+	profile_pic = url_for('static', filename='profile_pics/' + current_user.profile_pic)
+	return render_template('myaccount.html', title='Account', form=form, profile_pic=profile_pic)
+
+@Orbitus.route('/hostanevent', methods = ['GET', 'POST'])
+@login_required
+def hostanevent():
+	form = EventsForm()
+	if form.validate_on_submit():
+	      event = EventModel(EventName=form.EventName.data, Description=form.Description.data)
+	      event_m = EventModel()
+	      event_m.EventName = form.EventName.data
+	      event_m.startTime = form.StartTime.data
+	      event_m.endTime = form.EndTime.data
+	      event_m.Description = form.Description.data
+	      event_m.Date = form.Date.data  
+	      db.session.add(event_m)
+	      db.session.commit()     
+	      return redirect(url_for('dashboard'))
+	return render_template('hostanevent.html', title='Event', form=form)
+
 
 @Orbitus.route('/signout')
 def signout():
@@ -101,6 +187,7 @@ def signout():
 	return redirect(url_for('signin'))
 
 @Orbitus.route('/dashboard', methods=['GET','POST'])
+@login_required
 def dashboard():
 	return render_template('dashboard.html')
 
@@ -115,3 +202,8 @@ def offline():
 @Orbitus.route('/service-worker.js')
 def sw():
     return Orbitus.send_static_file('service-worker.js')
+
+#This is the page not found page
+@Orbitus.errorhandler(404)
+def page_not_found(e):
+	return render_template('404.html'), 404
