@@ -51,24 +51,24 @@
 										{{event.id}}.
 									</div>
 									<div class="ename" style="width: 33.33%">
-										<font color="#ccc">Name:</font> {{event.EventName}}
+										<span class="title"><font color="#ccc">Name:</font></span> {{event.EventName}}
 									</div>
-									<div class="edatetime" style="width: 50%">
-										<font color="#ccc">Start Time: </font>{{event.startTime.time()}}
+									<div class="edatetime st" style="width: 50%">
+										<span class="title"><font color="#ccc">Start Time: </font></span>{{event.startTime.time()}}
+									</div>
+								</div>
+								<div class="row">
+									<div style="width: 8.33%"></div>
+									<div style="width: 33.33%"></div>
+									<div class="edatetime et" style="width: 50%">
+										<span class="title"><font color="#ccc">End Time: </font></span>{{event.endTime.time()}}
 									</div>
 								</div>
 								<div class="row">
 									<div style="width: 8.33%"></div>
 									<div style="width: 33.33%"></div>
 									<div class="edatetime" style="width: 50%">
-										<font color="#ccc">End Time: </font>{{event.endTime.time()}}
-									</div>
-								</div>
-								<div class="row">
-									<div style="width: 8.33%"></div>
-									<div style="width: 33.33%"></div>
-									<div class="edatetime" style="width: 50%">
-										<font color="#ccc">Date: </font>{{event.endTime.date()}}
+										<span class="title"><font color="#ccc">Date: </font></span>{{event.endTime.date()}}
 									</div>
 								</div>
 								<div class="row">
@@ -82,24 +82,6 @@
 								Join
 							</div>
 						</div>
-						<!--div class="row">
-							<div class="eid">
-								{{event.id}}
-							</div>
-							<div class="ename">
-								{{event.EventName}}
-							</div>
-							<div class="edatetime">
-									{{event.time}}
-							</div>
-							<div class="">
-								<form method="POST">
-									<button type="submit" name="Join"--> <!-- For ashu, add the backend code here for joining. Delete this after addin-->
-										<!--Join-->
-									<!--/button>
-								</form>
-							</div>
-						</div-->
 					</div>
 					<br>
 				{% endfor %}

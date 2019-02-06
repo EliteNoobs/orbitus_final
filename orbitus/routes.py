@@ -180,6 +180,13 @@ def hostanevent():
 	      return redirect(url_for('dashboard'))
 	return render_template('hostanevent.html', title='Event', form=form)
 
+@Orbitus.route('/aboutdevs', methods=['GET', 'POST'])
+def aboutdevs():
+        if current_user.is_authenticated:
+                loggedIn = True
+        else:
+                loggedIn = False
+        return render_template('/aboutdevs.html', value=loggedIn)
 
 @Orbitus.route('/signout')
 def signout():
@@ -193,7 +200,11 @@ def dashboard():
 
 @Orbitus.route('/aboutus', methods=['GET','POST'])
 def aboutus():
-    return render_template('aboutus.html')
+        if current_user.is_authenticated:
+                loggedIn = True
+        else:
+                loggedIn = False
+        return render_template('aboutus.html', value=loggedIn) #This code is used to change the navbar of about us depending on whether user is logged in or not
 	
 @Orbitus.route('/offline', methods=['GET','POST'])
 def offline():
