@@ -1,0 +1,69 @@
+{% extends 'layout.html' %}
+	{% block title %}
+		<title>Orbitus &bull; Dashboard</title>
+	{% endblock title %}
+	{% block navbar %}
+	<div class="header">
+		Dashboard
+		<div id="toggleIcon" onclick="toggle(this)">
+			<div class="bar1"></div>
+ 			<div class="bar2"></div>
+  			<div class="bar3"></div>
+		</div>
+		
+		<nav id="menu" style="right: -200px;">
+			<ul>
+				<li id="l1" class="hvr-underline-from-left"><a href="dashboard"><i class="fa fa-home hvr-grow" aria-hidden="true"></i>   Dashboard</a></li>
+				<li id="l2" class="hvr-underline-reveal"><a href="myaccount"><i class="fa fa-user hvr-hang" aria-hidden="true"></i>
+				Account</a></li>
+				<li id="l3" class="hvr-underline-from-center"><a href="aboutus"><i class="fa fa-info-circle hvr-bob" aria-hidden="true"></i> About</a></li><br>
+				<li id="l4" class="hvr-underline-from-center"><a href="#"><i class="fa fa-users hvr-bob" aria-hidden="true"></i>   My Group</a></li>
+				<li id="l5" class="hvr-underline-reveal"><a href="#"><i class="fa fa-calendar hvr-wobble-skew" aria-hidden="true"></i>   Events</a></li>
+				<li id="l6" class="hvr-underline-from-right"><a href="signout"><i class="fa fa-sign-out hvr-wobble-bottom" aria-hidden="true"></i>   Sign Out</a></li>
+			</ul>
+		</nav>
+	</div>
+	{% endblock navbar %}
+	{% block content %}
+	<div class="rect animated slideInUp">
+		<div class="rect2">
+			<h1 class="headText animated fadeIn">Welcome</h1>
+			<div class="rect3">
+				<div class="bigbuttonarea">
+					<div class="row">
+						<a href="creategroup">
+							<div class="bigbutton">
+								<i class="fa fa-users" style="font-size: 30pt; margin-top: 10px; margin-bottom: 5px" aria-hidden="true"></i><br>
+								Create a<br> Group
+							</div>
+						</a>
+						<a href="searchgroup">
+							<div class="bigbutton">
+								<i class="fa fa-search" style="font-size: 30pt; margin-top: 10px; margin-bottom: 5px" aria-hidden="true"></i><br>
+								Search<br> Groups
+							</div>
+						</a>
+					</div>
+					<div class="row">
+						<a href="hostanevent">
+							<div class="bigbutton">
+								<i class="fa fa-calendar" style="font-size: 30pt; margin-top: 10px; margin-bottom: 5px" aria-hidden="true"></i><br>
+								Host an<br> Event
+							</div>
+						</a>
+						<a href="viewevents">
+							<div class="bigbutton">
+								<i class="fa fa-file-o" style="font-size: 30pt; margin-top: 10px; margin-bottom: 5px" aria-hidden="true"></i><br>
+								View<br> Events
+							</div>
+						</a>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+	{% endblock content %}
+	{% block footer %}
+	&copy; Copyright 2018 Orbitus Pvt. Ltd.
+	{% endblock footer %}
