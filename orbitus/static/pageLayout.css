@@ -770,6 +770,16 @@ button:hover {
 	color: black;
 }
 
+@media only screen and (max-width: 700px) {
+	.aboutdevs {
+		top: 10%;
+		left: 22.5%;
+		width: 210px;
+		height: 420px;
+		font-size: 16px;
+	}
+}
+
 .card {
 	position: absolute;
   	width: 100%;
