@@ -1,0 +1,35 @@
+{% extends 'layout.html' %}
+	{% block title %}
+		<title>Orbitus &bull; View Events</title>
+	{% endblock title %}
+	{% block navbar %}
+	<div class="header animated fadeIn">
+		"Insert Title Here"
+		<div id="toggleIcon" onclick="toggle(this)">
+			<div class="bar1"></div>
+ 			<div class="bar2"></div>
+  			<div class="bar3"></div>
+		</div>
+		
+		<nav id="menu" style="right: -200px;">
+			<ul>
+				<li id="l1" class="hvr-underline-from-left"><a href="#"><i class="fa fa-home hvr-grow" aria-hidden="true"></i>   Home</a></li>
+				<!--li><a href="#"><i class="fa fa-user" aria-hidden="true"></i>
+				Account</a></li-->
+				<li id="l2" class="hvr-underline-from-center"><a href="aboutus"><i class="fa fa-info-circle hvr-bob" aria-hidden="true"></i>   About</a></li>
+				<li id="l3" class="hvr-underline-reveal"><a href="signin"><i class="fa fa-sign-in hvr-wobble-bottom" aria-hidden="true"></i>   Sign In</a></li>
+				<li id="l4" class="hvr-underline-from-right"><a href="signup"><i class="fa fa-user-plus hvr-wobble-bottom" aria-hidden="true"></i>   Sign Up</a></li>
+			</ul>
+		</nav>
+	</div>
+	{% endblock navbar %}
+	{% block content %}
+	<div class="rect animated slideInUp">
+		<div class="rect2">
+
+		</div>
+	</div>
+	{% endblock content %}
+	{% block footer %}
+	&copy; Copyright 2018 Orbitus Pvt. Ltd.
+	{% endblock footer %}

@@ -1,0 +1,85 @@
+{% extends 'layout.html' %}
+	{% block title %}
+		<title>Orbitus &bull; About Us</title>
+	{% endblock title %}
+	{% block navbar %}
+	<div class="header animated fadeIn">
+		ABOUT US
+		<div id="toggleIcon" onclick="toggle(this)">
+			<div class="bar1"></div>
+ 			<div class="bar2"></div>
+  			<div class="bar3"></div>
+		</div>
+		
+		<nav id="menu" style="right: -200px;">
+			<ul>
+				{% if value == False %}
+					<li id="l1" class="hvr-underline-from-left"><a href="/"><i class="fa fa-home hvr-grow" aria-hidden="true"></i>   Home</a></li>
+					<li id="l3" class="hvr-underline-reveal"><a href="signin"><i class="fa fa-sign-in hvr-wobble-bottom" aria-hidden="true"></i>   Sign In</a></li>
+					<li id="l4" class="hvr-underline-reveal"><a href="javascript:history.back()"><i class="fa fa-chevron-left hvr-grow-rotate" aria-hidden="true"></i>   Back</a></li>
+				{% else %}
+					<li id="l1" class="hvr-underline-from-left"><a href="dashboard"><i class="fa fa-home hvr-grow" aria-hidden="true"></i>   Dashboard</a></li>
+					<li id="l2" class="hvr-underline-reveal"><a href="javascript:history.back()"><i class="fa fa-chevron-left hvr-grow-rotate" aria-hidden="true"></i>   Back</a></li>
+				{% endif %}
+			</ul>
+		</nav>
+	</div>
+	{% endblock navbar %}
+	{% block content %}
+	<div class="rect animated flipInX" style="">
+		<div class="rect2" style="">
+			<div class="rect3" style="top: 20px; height: 95%; bottom: 0px;"> 
+				<div style="height: 43vh;
+							width: calc(60vw);
+							top: 2vh;
+							left: 4vw;
+							transform-origin: center;
+							position: absolute;
+							background-color: rgba(0, 0, 0, 0.0);
+							border-width: thin;
+							border-style: none;
+							border-color: #1E0731;
+							text-align: left">
+					<div id="aboutus" class="bodyContent" style="margin-left: 10px; 
+													margin-right: 10px;">
+						<br>
+						Did you know that India is the Diabetes Capital of
+						the World?<br>
+						One in every three people are obese,
+						two in every five have mental health problems
+						and this has to CHANGE!
+						<br>
+						We are a group of four enthusiastic people who truly
+						advocate the power of fitness. As friends who have
+						always uplifted each other, we also believe in the
+						power of community spirit in creating a healthy and
+						fit India.
+						Presenting to you Orbitus – A budding fitness
+						platform for those who want to tone up, and also
+						help others along the way. Host events, invite
+						people, make friends – and take your community on
+						a healthy journey.<br>
+						<b><center>
+							ARE YOU READY?
+						</center></b>
+						<br>
+						<center>
+							<div id="aboutbtn">
+								<a href="{{ url_for('aboutdevs') }}" >
+									<center>
+										More info on developers...
+									</center>
+								</a>
+							</div>
+						</center>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+	{% endblock content %}
+	{% block footer %}
+	&copy; Copyright 2018 Orbitus Pvt. Ltd.
+	{% endblock footer %}
+	

@@ -1,0 +1,158 @@
+{% extends 'layout.html' %}
+	{% block title %}
+		<title>Orbitus &bull; About the Developers</title>
+	{% endblock title %}
+	{% block navbar %}
+	<div class="header animated fadeIn">
+		About The Creators
+		<div id="toggleIcon" onclick="toggle(this)">
+			<div class="bar1"></div>
+ 			<div class="bar2"></div>
+  			<div class="bar3"></div>
+		</div>
+		
+		<nav id="menu" style="right: -200px;">
+			<ul>
+				{% if value == False %}
+					<li id="l1" class="hvr-underline-from-left"><a href="/"><i class="fa fa-home hvr-grow" aria-hidden="true"></i>   Home</a></li>
+					<li id="l2" class="hvr-underline-from-center"><a href="aboutus"><i class="fa fa-info-circle hvr-bob" aria-hidden="true"></i>   About</a></li><br>
+					<li id="l3" class="hvr-underline-reveal"><a href="signin"><i class="fa fa-sign-in hvr-wobble-bottom" aria-hidden="true"></i>   Sign In</a></li>
+					<li id="l4" class="hvr-underline-reveal"><a href="javascript:history.back()"><i class="fa fa-chevron-left hvr-grow-rotate" aria-hidden="true"></i>   Back</a></li>
+				{% else %}
+					<li id="l1" class="hvr-underline-from-left"><a href="dashboard"><i class="fa fa-home hvr-grow" aria-hidden="true"></i>   Dashboard</a></li>
+					<li id="l2" class="hvr-underline-from-center"><a href="aboutus"><i class="fa fa-info-circle hvr-bob" aria-hidden="true"></i>   About</a></li><br>
+					<li id="l3" class="hvr-underline-reveal"><a href="javascript:history.back()"><i class="fa fa-chevron-left hvr-grow-rotate" aria-hidden="true"></i>   Back</a></li>
+				{% endif %}
+			</ul>
+		</nav>
+	</div>
+	{% endblock navbar %}
+	{% block content %}
+	<div class="rect animated slideInUp">
+		<div class="rect2">
+			<div class="rect3" style="top: 20px; height: 90%;"> 
+				<center><h1 class="headText">Our Developers</h1><center>
+				<div style="height: 43vh;
+							width: calc(60vw);
+							top: 2vh;
+							left: 0vw;
+							transform-origin: center;
+							position: absolute;
+							background-color: rgba(0, 0, 0, 0.0);
+							border-width: thin;
+							border-style: none;
+							border-color: #1E0731;
+							text-align: left">
+					<div class="aboutdevs"> <!--wrapper-->
+						<div class="card" id="c0" onmouseover="hidecards(this)" onmouseleave="showcards()"> <!--containers-->
+							<div class="image">
+								<img src="https://technovations.000webhostapp.com/images/kittu.jpg" width="100%" height="100%">
+							</div>
+							<div class="text">
+								<b>Kushagra Srivastava </b><br><br>
+								He is the Front-end Developer & Designer and the co-leader of the project.
+							</div>
+						</div>
+						<div class="card" id="c1" onmouseover="hidecards(this)" onmouseleave="showcards()">
+							<div class="image">
+								<img src="https://technovations.000webhostapp.com/images/kumar.jpeg" width="100%" height="100%">
+							</div>
+							<div class="text">
+								<b>Kumar Swayam </b><br><br>
+								He is the Database Administrator and one the back-end coders.
+							</div>
+						</div>
+						<div class="card" id="c2" onmouseover="hidecards(this)" onmouseleave="showcards()">
+							<div class="image">
+								<img src="https://technovations.000webhostapp.com/images/ashu.jpeg" width="100%" height="100%">
+							</div>
+							<div class="text">
+								<b>Ashutosh Srivastava </b><br><br>
+								He is the main Back-end Developer and the project lead.
+							</div>
+						</div>
+						<div class="card" id="c3" onmouseover="hidecards(this)" onmouseleave="showcards()">
+							<div class="image">
+								<img src="https://technovations.000webhostapp.com/images/arjun.jpeg" width="100%" height="100%">
+							</div>
+							<div class="text">
+								<b>Arjun Seshadri </b><br><br>
+								He is one of the back-end programmers of this project.
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript">
+		var w = document.getElementById("c0");
+		var x = document.getElementById("c1");
+		var y = document.getElementById("c2");
+		var z = document.getElementById("c3");
+
+		function hidecards(e)
+		{
+			if (e == w)
+			{
+				//e.style.backgroundColor = "rgba(58, 128, 242, 0.7)";
+				e.style.backgroundColor = "rgba(204, 204, 204, 0.9)";
+				z.children[0].children[0].style.display = "none";
+				z.children[1].style.display = "none";
+				z.style.boxShadow = "none";
+			}
+			if (e == x)
+			{
+				//e.style.backgroundColor = "rgba(3, 183, 0, 0.7)";
+				e.style.backgroundColor = "rgba(204, 204, 204, 0.9)";
+				y.children[0].children[0].style.display = "none";
+				y.children[1].style.display = "none";
+				y.style.boxShadow = "none";
+				y.style.backgroundColor = "rgba(0, 0, 0, 0)";
+			}
+			if (e == y)
+			{
+				//e.style.backgroundColor = "rgba(249, 24, 24, 0.7)";
+				e.style.backgroundColor = "rgba(204, 204, 204, 0.9)";
+				x.children[0].children[0].style.display = "none";
+				x.children[1].style.display = "none";
+				x.style.boxShadow = "none";
+			}
+			if (e == z)
+			{
+				//e.style.backgroundColor = "rgba(243, 247, 2, 0.7)";
+				e.style.backgroundColor = "rgba(204, 204, 204, 0.9)";
+				w.children[0].children[0].style.display = "none";
+				w.children[1].style.display = "none";
+				w.style.boxShadow = "none";
+				w.style.backgroundColor = "rgba(0, 0, 0, 0)";
+			}
+		}
+
+		function showcards()
+		{
+			w.style.boxShadow = "0px 20px 100px #000";
+			x.style.boxShadow = "0px 20px 100px #000";
+			y.style.boxShadow = "0px 20px 100px #000";
+			z.style.boxShadow = "0px 20px 100px #000";
+
+			w.children[0].children[0].style.display = "block";
+			x.children[0].children[0].style.display = "block";
+			y.children[0].children[0].style.display = "block";
+			z.children[0].children[0].style.display = "block";
+
+			w.children[1].style.display = "block";
+			x.children[1].style.display = "block";
+			y.children[1].style.display = "block";
+			z.children[1].style.display = "block";
+
+			w.style.backgroundColor = "rgba(62, 35, 109, 0.97)";
+			x.style.backgroundColor = "rgba(62, 35, 109, 0.97)";
+			y.style.backgroundColor = "rgba(62, 35, 109, 0.97)";
+			z.style.backgroundColor = "rgba(62, 35, 109, 0.97)";
+		}
+	</script>
+	{% endblock content %}
+	{% block footer %}
+	&copy; Copyright 2018 Orbitus Pvt. Ltd.
+	{% endblock footer %}

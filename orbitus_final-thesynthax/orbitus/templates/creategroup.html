@@ -1,0 +1,90 @@
+{% extends 'layout.html' %}
+	{% block title %}
+		<title>Orbitus &bull; Create a Group</title>
+	{% endblock title %}
+	{% block navbar %}
+	<div class="header animated fadeIn">
+		Create a Group
+		<div id="toggleIcon" onclick="toggle(this)">
+			<div class="bar1"></div>
+ 			<div class="bar2"></div>
+  			<div class="bar3"></div>
+		</div>
+		
+		<nav id="menu" style="right: -200px;">
+			<ul>
+				<li id="l1" class="hvr-underline-from-left"><a href="/dashboard"><i class="fa fa-home hvr-grow" aria-hidden="true"></i>   Dashboard</a></li>
+				<!--li><a href="#"><i class="fa fa-user" aria-hidden="true"></i>
+				Account</a></li-->
+				<li id="l2" class="hvr-underline-from-center"><a href="aboutus"><i class="fa fa-info-circle hvr-bob" aria-hidden="true"></i>   About</a></li><br>
+				<li id="l3" class="hvr-underline-reveal"><a href="javascript:history.back()"><i class="fa fa-chevron-left hvr-grow-rotate" aria-hidden="true"></i>   Back</a></li>
+			</ul>
+		</nav>
+	</div>
+	{% endblock navbar %}
+	{% block content %}
+	<div class="rect animated flipInX">
+		<div class="rect2">
+			<div class="rect3" style="top: 20px; height: 90%">
+				<div style="height: 43vh;
+							width: calc(60vw);
+							top: 6vh;
+							left: calc(10vw - 20px);
+							transform-origin: center;
+							position: absolute;
+							background-color: rgba(0, 0, 0, 0.0);
+							border-width: thin;
+							border-style: none;
+							border-color: #1E0731;
+							text-align: left">
+					<div class="bodyContent">
+						<div class="groupform">
+							<form method="POST" action="">
+								<div class="row">
+									<div class="form-group col-md-9 col-lg-9 col-xs-9">
+										{{form.hidden_tag()}}
+										{{form.GroupName.label(class="form-control-label")}}
+										{% if form.GroupName.errors %}
+				     					   {{ form.GroupName(class="form-control form-control-lg is-invalid") }}
+				    						<div class="invalid-feedback">
+				                			{% for error in form.GroupName.errors %}
+				                    			<span>{{ error }}</span>
+				            				{% endfor %}
+				    			        	</div>
+					                    {% else %}
+											{{form.GroupName(class="form-control form-control-lg")}}
+										{% endif %}
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-12 col-lg-12 col-xs-12" style="max-width: 500px">
+										{{form.Description.label(class="form-control-label")}}
+										{% if form.Description.errors %}
+				     					   {{ form.Description(class="form-control form-control-lg is-invalid") }}
+				    						<div class="invalid-feedback">
+				                			{% for error in form.Description.errors %}
+				                    			<span>{{ error }}</span>
+				            				{% endfor %}
+				    			        	</div>
+					                    {% else %}
+											{{form.Description(class="form-control form-control-lg", cols="30", rows="5", style="border-color: rgb(0, 0, 0); transition: 200ms ease-in-out")}}
+										{% endif %}
+									</div>
+								</div>
+								<br>
+								<div class="form-group">
+									{{ form.creategroupbtn(class="btn btn-outline-info", style="max-width: 500px") }}
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+	{% endblock content %}
+	{% block footer %}
+	&copy; Copyright 2018 Orbitus Pvt. Ltd.
+	{% endblock footer %}
+	
